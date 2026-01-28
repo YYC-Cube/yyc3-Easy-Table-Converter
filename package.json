@@ -9,10 +9,13 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "type-check": "tsc -p tsconfig.typecheck.json --noEmit",
+    "typecheck": "tsc -p tsconfig.typecheck.json --noEmit",
     "start": "next start -p 3000",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:unit": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:prod": "USE_WS=0 playwright test",
     "prepare": "husky install"
