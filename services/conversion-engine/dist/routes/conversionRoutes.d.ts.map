@@ -1,0 +1,1 @@
+{"version":3,"file":"conversionRoutes.d.ts","sourceRoot":"","sources":["../../src/routes/conversionRoutes.ts"],"names":[],"mappings":"AAAA;;;;;;GAMG;AAEH,OAAO,OAA4C,MAAM,SAAS,CAAC;AACnE,OAAO,EAAE,iBAAiB,EAAE,MAAM,+BAA+B,CAAC;AAGlE,UAAU,uBAAuB;IAC/B,iBAAiB,EAAE,iBAAiB,CAAC;CACtC;AAED;;;GAGG;AACH,eAAO,MAAM,gBAAgB,GAAI,SAAS,uBAAuB,KAAG,OAAO,CAAC,MAoW3E,CAAC;AAEF,eAAe,gBAAgB,CAAC"}

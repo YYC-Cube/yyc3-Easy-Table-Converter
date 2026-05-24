@@ -1,0 +1,215 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: core-flows.spec.ts >> Form Validation >> required fields should show validation errors
+- Location: e2e/core-flows.spec.ts:181:7
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: .error-message, [role="alert"], text=Required >> nth=0
+Expected: visible
+Error: Unexpected token "=" while parsing css selector ".error-message, [role="alert"], text=Required". Did you mean to CSS.escape it?
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for .error-message, [role="alert"], text=Required >> nth=0
+
+```
+
+# Page snapshot
+
+```yaml
+- main [ref=e7]:
+  - generic [ref=e10]:
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - img "Grafana" [ref=e14]
+        - heading "Welcome to Grafana" [level=1] [ref=e16]
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e24]: Email or username
+          - generic [ref=e25]:
+            - textbox "Email or username" [active] [ref=e29]:
+              - /placeholder: email or username
+            - alert [ref=e31]:
+              - img [ref=e32]
+              - text: Email or username is required
+        - generic [ref=e34]:
+          - generic [ref=e37]: Password
+          - generic [ref=e38]:
+            - generic [ref=e41]:
+              - textbox "Password" [ref=e42]:
+                - /placeholder: password
+              - switch "Show password" [ref=e44] [cursor=pointer]:
+                - img [ref=e45]
+            - alert [ref=e48]:
+              - img [ref=e49]
+              - text: Password is required
+        - button "Log in" [ref=e50] [cursor=pointer]:
+          - generic [ref=e51]: Log in
+        - link "Forgot your password?" [ref=e53] [cursor=pointer]:
+          - /url: /user/password/send-reset-email
+          - generic [ref=e54]: Forgot your password?
+    - list [ref=e57]:
+      - listitem [ref=e58]:
+        - img [ref=e59]
+        - link "Documentation" [ref=e61] [cursor=pointer]:
+          - /url: https://grafana.com/docs/grafana/latest/?utm_source=grafana_footer
+        - text: "|"
+      - listitem [ref=e62]:
+        - img [ref=e63]
+        - link "Support" [ref=e65] [cursor=pointer]:
+          - /url: https://grafana.com/products/enterprise/?utm_source=grafana_footer
+        - text: "|"
+      - listitem [ref=e66]:
+        - img [ref=e67]
+        - link "Community" [ref=e69] [cursor=pointer]:
+          - /url: https://community.grafana.com/?utm_source=grafana_footer
+        - text: "|"
+      - listitem [ref=e70]:
+        - link "Open Source" [ref=e71] [cursor=pointer]:
+          - /url: https://grafana.com/oss/grafana?utm_source=grafana_footer
+        - text: "|"
+      - listitem [ref=e72]:
+        - link "Grafana v12.4.1 (46a02dc12a)" [ref=e73] [cursor=pointer]:
+          - /url: https://github.com/grafana/grafana/blob/main/CHANGELOG.md
+        - text: "|"
+      - listitem [ref=e74]:
+        - img [ref=e75]
+        - link "New version available!" [ref=e77] [cursor=pointer]:
+          - /url: https://grafana.com/grafana/download?utm_source=grafana_footer
+```
+
+# Test source
+
+```ts
+  89  |         await expect(outputArea).toContainText(/<\?xml|<root/i);
+  90  |       }
+  91  |     }
+  92  |   });
+  93  | 
+  94  |   test('image compression should show preview', async ({ page }) => {
+  95  |     await page.goto('/converters/image-compress');
+  96  |     
+  97  |     const fileInput = page.locator('input[type="file"]');
+  98  |     await fileInput.setInputFiles({
+  99  |       name: 'test.png',
+  100 |       mimeType: 'image/png',
+  101 |       buffer: Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==', 'base64'),
+  102 |     });
+  103 |     
+  104 |     const imagePreview = page.locator('img.preview-image, [data-testid="preview"]');
+  105 |     await expect(imagePreview).toBeVisible({ timeout: 10000 });
+  106 |   });
+  107 | });
+  108 | 
+  109 | test.describe('User Interface & Accessibility', () => {
+  110 |   test('responsive design should work on mobile', async ({ page }) => {
+  111 |     await page.setViewportSize({ width: 375, height: 667 });
+  112 |     await page.goto('/');
+  113 |     
+  114 |     const header = page.locator('header');
+  115 |     await expect(header).toBeVisible();
+  116 |     
+  117 |     const menuToggle = page.locator('button[aria-label*="menu"], button[aria-label*="Menu"], .hamburger');
+  118 |     if (await menuToggle.isVisible()) {
+  119 |       await menuToggle.click();
+  120 |       const mobileMenu = page.locator('nav.mobile-menu, nav[aria-expanded="true"]');
+  121 |       await expect(mobileMenu).toBeVisible();
+  122 |     }
+  123 |   });
+  124 | 
+  125 |   test('dark mode toggle should work', async ({ page }) => {
+  126 |     await page.goto('/');
+  127 |     
+  128 |     const themeToggle = page.locator('[data-testid="theme-toggle"], button:has-text("🌙"), button:has-text("☀️")');
+  129 |     if (await themeToggle.isVisible()) {
+  130 |       await themeToggle.click();
+  131 |       
+  132 |       const htmlElement = page.locator('html');
+  133 |       const className = await htmlElement.getAttribute('class');
+  134 |       expect(className).toMatch(/dark|light/);
+  135 |     }
+  136 |   });
+  137 | 
+  138 |   test('error boundary should catch errors gracefully', async ({ page }) => {
+  139 |     console.log = jest.fn();
+  140 |     
+  141 |     await page.goto('/nonexistent-page-that-does-not-exist');
+  142 |     
+  143 |     const errorPage = page.locator('[data-testid="error-boundary"], .error-page, h1:has-text("404")');
+  144 |     await expect(errorPage).toBeVisible({ timeout: 10000 });
+  145 |   });
+  146 | });
+  147 | 
+  148 | test.describe('Performance Tests', () => {
+  149 |   test('page load should complete within time limit', async ({ page }) => {
+  150 |     const startTime = Date.now();
+  151 |     
+  152 |     await page.goto('/', { waitUntil: 'networkidle' });
+  153 |     
+  154 |     const loadTime = Date.now() - startTime;
+  155 |     console.log(`Page load time: ${loadTime}ms`);
+  156 |     
+  157 |     expect(loadTime).toBeLessThan(15000);
+  158 |   });
+  159 | 
+  160 |   test('large file upload should not block UI', async ({ page }) => {
+  161 |     await page.goto('/converters/table');
+  162 |     
+  163 |     const largeFileContent = 'name,value\n' + Array(1000).fill(null).map((_, i) => `item${i},${Math.random()}`).join('\n');
+  164 |     
+  165 |     const fileInput = page.locator('input[type="file"]');
+  166 |     await fileInput.setInputFiles({
+  167 |       name: 'large-file.csv',
+  168 |       mimeType: 'text/csv',
+  169 |       buffer: Buffer.from(largeFileContent),
+  170 |     });
+  171 |     
+  172 |     const loadingIndicator = page.locator('[data-testid="loading"], .loading, spinner');
+  173 |     await expect(loadingIndicator).toBeVisible({ timeout: 3000 });
+  174 |     
+  175 |     const result = page.locator('[data-testid="result"], .result, table');
+  176 |     await expect(result).toBeVisible({ timeout: 30000 });
+  177 |   });
+  178 | });
+  179 | 
+  180 | test.describe('Form Validation', () => {
+  181 |   test('required fields should show validation errors', async ({ page }) => {
+  182 |     await page.goto('/login');
+  183 |     
+  184 |     const submitButton = page.locator('button[type="submit"]:visible').first();
+  185 |     if (await submitButton.isVisible()) {
+  186 |       await submitButton.click();
+  187 |       
+  188 |       const errorMessage = page.locator('.error-message, [role="alert"], text=Required');
+> 189 |       await expect(errorMessage.first()).toBeVisible();
+      |                                          ^ Error: expect(locator).toBeVisible() failed
+  190 |     }
+  191 |   });
+  192 | 
+  193 |   test('email validation should work correctly', async ({ page }) => {
+  194 |     await page.goto('/login');
+  195 |     
+  196 |     const emailInput = page.locator('input[type="email"], input[name="email"]').first();
+  197 |     if (await emailInput.isVisible()) {
+  198 |       await emailInput.fill('invalid-email');
+  199 |       await emailInput.blur();
+  200 |       
+  201 |       const emailError = page.locator(':text("email"), :text("valid")');
+  202 |       if (await emailError.isVisible()) {
+  203 |         expect(emailError).toContainText(/invalid|valid|email/i);
+  204 |       }
+  205 |     }
+  206 |   });
+  207 | });
+  208 | 
+```

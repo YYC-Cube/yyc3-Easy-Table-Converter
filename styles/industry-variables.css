@@ -1,0 +1,481 @@
+/**
+ * @file 行业组件样式变量定义
+ * @description 为所有行业组件提供统一的样式变量和主题支持
+ * @author YYC
+ * @version 1.0.0
+ * @created 2024-10-15
+ */
+
+/* 基础颜色系统 - 支持亮色/暗色模式 */
+:root {
+  /* 主色调系统 */
+  --primary: #3B82F6; /* 蓝色 - 主要操作色 */
+  --primary-light: #60A5FA; /* 浅蓝 - 悬停状态 */
+  --primary-dark: #2563EB; /* 深蓝 - 按下状态 */
+  --primary-foreground: #FFFFFF; /* 主色文字 */
+  
+  /* 辅助色系统 */
+  --secondary: #8B5CF6; /* 紫色 - 辅助操作色 */
+  --secondary-light: #A78BFA; /* 浅紫 - 次要强调 */
+  --secondary-dark: #7C3AED; /* 深紫 - 次要强调 */
+  --secondary-foreground: #FFFFFF; /* 辅助色文字 */
+  
+  /* 功能色系统 */
+  --success: #10B981; /* 绿色 - 成功状态 */
+  --success-light: #34D399; /* 浅绿 - 成功次要 */
+  --success-dark: #059669; /* 深绿 - 成功强调 */
+  --success-foreground: #FFFFFF; /* 成功文字 */
+  
+  --error: #EF4444; /* 红色 - 错误状态 */
+  --error-light: #F87171; /* 浅红 - 错误次要 */
+  --error-dark: #DC2626; /* 深红 - 错误强调 */
+  --error-foreground: #FFFFFF; /* 错误文字 */
+  
+  --warning: #F59E0B; /* 橙色 - 警告状态 */
+  --warning-light: #FBBF24; /* 浅橙 - 警告次要 */
+  --warning-dark: #D97706; /* 深橙 - 警告强调 */
+  --warning-foreground: #FFFFFF; /* 警告文字 */
+  
+  --info: #3B82F6; /* 蓝色 - 信息状态 */
+  --info-light: #60A5FA; /* 浅蓝 - 信息次要 */
+  --info-dark: #2563EB; /* 深蓝 - 信息强调 */
+  --info-foreground: #FFFFFF; /* 信息文字 */
+  
+  /* 中性色系统 - 亮色模式 */
+  --background: #FFFFFF; /* 背景色 */
+  --foreground: #1F2937; /* 主文字色 */
+  
+  --card: #FFFFFF; /* 卡片背景 */
+  --card-foreground: #1F2937; /* 卡片文字 */
+  
+  --border: #E5E7EB; /* 边框色 */
+  --input: #E5E7EB; /* 输入框背景 */
+  
+  --muted: #F3F4F6; /* 次要背景 */
+  --muted-foreground: #6B7280; /* 次要文字 */
+  
+  --accent: #F3F4F6; /* 强调背景 */
+  --accent-foreground: #1F2937; /* 强调文字 */
+  
+  --destructive: #EF4444; /* 危险操作 */
+  --destructive-foreground: #FFFFFF; /* 危险文字 */
+  
+  /* 行业特定颜色 */
+  --finance: #06B6D4; /* 金融行业 - 青色 */
+  --healthcare: #10B981; /* 医疗行业 - 绿色 */
+  --retail: #F59E0B; /* 零售行业 - 橙色 */
+  --manufacturing: #6366F1; /* 制造业 - 靛蓝色 */
+  --education: #8B5CF6; /* 教育行业 - 紫色 */
+  --government: #9CA3AF; /* 政府行业 - 灰色 */
+  --technology: #3B82F6; /* 科技行业 - 蓝色 */
+  --media: #EC4899; /* 媒体行业 - 粉色 */
+  --energy: #F97316; /* 能源行业 - 红色 */
+  --transportation: #14B8A6; /* 交通行业 - 茶绿色 */
+  --construction: #A16207; /* 建筑行业 - 琥珀色 */
+  --agriculture: #4ADE80; /* 农业行业 - 亮绿色 */
+  --legal: #6366F1; /* 法律行业 - 靛蓝色 */
+  --consulting: #8B5CF6; /* 咨询行业 - 紫色 */
+  --hospitality: #EC4899; /* 酒店行业 - 粉色 */
+  --realestate: #F59E0B; /* 房地产行业 - 橙色 */
+  --nonprofit: #10B981; /* 非营利行业 - 绿色 */
+  --telecommunications: #3B82F6; /* 电信行业 - 蓝色 */
+  --automotive: #F43F5E; /* 汽车行业 - 玫红色 */
+  --aerospace: #8B5CF6; /* 航空航天行业 - 紫色 */
+  --pharmaceutical: #10B981; /* 制药行业 - 绿色 */
+  --insurance: #6366F1; /* 保险行业 - 靛蓝色 */
+  --logistics: #F59E0B; /* 物流行业 - 橙色 */
+}
+
+/* 暗色模式颜色系统 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* 中性色系统 - 暗色模式 */
+    --background: #111827; /* 深色背景 */
+    --foreground: #F9FAFB; /* 浅色文字 */
+    
+    --card: #1F2937; /* 卡片背景 */
+    --card-foreground: #F9FAFB; /* 卡片文字 */
+    
+    --border: #374151; /* 边框色 */
+    --input: #374151; /* 输入框背景 */
+    
+    --muted: #374151; /* 次要背景 */
+    --muted-foreground: #9CA3AF; /* 次要文字 */
+    
+    --accent: #374151; /* 强调背景 */
+    --accent-foreground: #F9FAFB; /* 强调文字 */
+    
+    /* 深色模式下的行业特定颜色 - 降低饱和度 */
+    --finance: #0891B2; /* 金融行业 - 深青色 */
+    --healthcare: #059669; /* 医疗行业 - 深绿色 */
+    --retail: #D97706; /* 零售行业 - 深橙色 */
+    --manufacturing: #4F46E5; /* 制造业 - 深靛蓝色 */
+    --education: #7C3AED; /* 教育行业 - 深紫色 */
+    --government: #6B7280; /* 政府行业 - 深灰色 */
+    --technology: #2563EB; /* 科技行业 - 深蓝色 */
+    --media: #DB2777; /* 媒体行业 - 深粉色 */
+    --energy: #EA580C; /* 能源行业 - 深红色 */
+    --transportation: #0D9488; /* 交通行业 - 深茶绿色 */
+    --construction: #92400E; /* 建筑行业 - 深琥珀色 */
+    --agriculture: #22C55E; /* 农业行业 - 深绿色 */
+    --legal: #4F46E5; /* 法律行业 - 深靛蓝色 */
+    --consulting: #7C3AED; /* 咨询行业 - 深紫色 */
+    --hospitality: #DB2777; /* 酒店行业 - 深粉色 */
+    --realestate: #D97706; /* 房地产行业 - 深橙色 */
+    --nonprofit: #059669; /* 非营利行业 - 深绿色 */
+    --telecommunications: #2563EB; /* 电信行业 - 深蓝色 */
+    --automotive: #E11D48; /* 汽车行业 - 深玫红色 */
+    --aerospace: #7C3AED; /* 航空航天行业 - 深紫色 */
+    --pharmaceutical: #059669; /* 制药行业 - 深绿色 */
+    --insurance: #4F46E5; /* 保险行业 - 深靛蓝色 */
+    --logistics: #D97706; /* 物流行业 - 深橙色 */
+  }
+}
+
+/* 字体系统 */
+:root {
+  /* 字体族 */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'Fira Code', 'Fira Mono', 'Roboto Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  
+  /* 字重 */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* 字体大小 */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  --font-size-5xl: 3rem;      /* 48px */
+  
+  /* 行高 */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  --line-height-loose: 2;
+  
+  /* 字间距 */
+  --letter-spacing-tight: -0.05em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+  --letter-spacing-wider: 0.1em;
+}
+
+/* 间距系统 */
+:root {
+  /* 基础间距单位 */
+  --spacing-unit: 4px;
+  
+  /* 间距尺寸 */
+  --spacing-0: 0;
+  --spacing-1: calc(var(--spacing-unit) * 1);      /* 4px */
+  --spacing-2: calc(var(--spacing-unit) * 2);      /* 8px */
+  --spacing-3: calc(var(--spacing-unit) * 3);      /* 12px */
+  --spacing-4: calc(var(--spacing-unit) * 4);      /* 16px */
+  --spacing-5: calc(var(--spacing-unit) * 5);      /* 20px */
+  --spacing-6: calc(var(--spacing-unit) * 6);      /* 24px */
+  --spacing-8: calc(var(--spacing-unit) * 8);      /* 32px */
+  --spacing-10: calc(var(--spacing-unit) * 10);    /* 40px */
+  --spacing-12: calc(var(--spacing-unit) * 12);    /* 48px */
+  --spacing-16: calc(var(--spacing-unit) * 16);    /* 64px */
+  --spacing-20: calc(var(--spacing-unit) * 20);    /* 80px */
+  --spacing-24: calc(var(--spacing-unit) * 24);    /* 96px */
+  --spacing-32: calc(var(--spacing-unit) * 32);    /* 128px */
+  
+  /* 布局间距 */
+  --header-height: 64px;
+  --footer-height: 48px;
+  --sidebar-width: 240px;
+  --sidebar-width-collapsed: 64px;
+  --toolbar-height: 48px;
+  --tab-height: 40px;
+  --card-height: 120px;
+  
+  /* 内边距 */
+  --padding-sm: var(--spacing-2);
+  --padding-md: var(--spacing-4);
+  --padding-lg: var(--spacing-6);
+  --padding-xl: var(--spacing-8);
+  --padding-2xl: var(--spacing-12);
+  
+  /* 外边距 */
+  --margin-sm: var(--spacing-2);
+  --margin-md: var(--spacing-4);
+  --margin-lg: var(--spacing-6);
+  --margin-xl: var(--spacing-8);
+  --margin-2xl: var(--spacing-12);
+}
+
+/* 圆角系统 */
+:root {
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+  
+  /* 组件特定圆角 */
+  --card-border-radius: var(--radius-lg);
+  --button-border-radius: var(--radius-md);
+  --input-border-radius: var(--radius-md);
+  --avatar-border-radius: var(--radius-full);
+  --tooltip-border-radius: var(--radius-md);
+  --modal-border-radius: var(--radius-xl);
+  --sidebar-border-radius: var(--radius-lg);
+}
+
+/* 阴影系统 */
+:root {
+  /* 基础阴影 */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  --shadow-none: none;
+  
+  /* 组件特定阴影 */
+  --card-shadow: var(--shadow-md);
+  --header-shadow: var(--shadow-sm);
+  --dropdown-shadow: var(--shadow-lg);
+  --modal-shadow: var(--shadow-2xl);
+  --tooltip-shadow: var(--shadow-md);
+  --button-shadow: var(--shadow-sm);
+  --button-shadow-hover: var(--shadow-md);
+  --button-shadow-active: var(--shadow-inner);
+}
+
+/* 暗色模式阴影调整 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.15);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* 动画和过渡系统 */
+:root {
+  /* 过渡时长 */
+  --transition-duration-fast: 150ms;
+  --transition-duration-normal: 250ms;
+  --transition-duration-slow: 350ms;
+  --transition-duration-slower: 500ms;
+  
+  /* 过渡函数 */
+  --transition-timing-linear: linear;
+  --transition-timing-ease: ease;
+  --transition-timing-ease-in: ease-in;
+  --transition-timing-ease-out: ease-out;
+  --transition-timing-ease-in-out: ease-in-out;
+  --transition-timing-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --transition-timing-back: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  --transition-timing-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* 过渡属性 */
+  --transition-property-all: all;
+  --transition-property-transform: transform;
+  --transition-property-opacity: opacity;
+  --transition-property-color: color, background-color, border-color, text-decoration-color, fill, stroke;
+  --transition-property-shadow: box-shadow;
+  --transition-property-transform-opacity: transform, opacity;
+  --transition-property-transform-shadow: transform, box-shadow;
+  --transition-property-color-shadow: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow;
+  
+  /* 动画时长 */
+  --animation-duration-fast: 150ms;
+  --animation-duration-normal: 250ms;
+  --animation-duration-slow: 350ms;
+  --animation-duration-slower: 500ms;
+  --animation-duration-1s: 1000ms;
+  --animation-duration-2s: 2000ms;
+  
+  /* 动画函数 */
+  --animation-timing-ease: ease;
+  --animation-timing-ease-in: ease-in;
+  --animation-timing-ease-out: ease-out;
+  --animation-timing-ease-in-out: ease-in-out;
+  --animation-timing-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --animation-timing-back: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  --animation-timing-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* 行业组件特定变量 */
+:root {
+  /* 行业导航组件 */
+  --industry-nav-item-height: 40px;
+  --industry-nav-item-padding-x: var(--spacing-4);
+  --industry-nav-item-padding-y: var(--spacing-2);
+  --industry-nav-item-hover-background: var(--accent);
+  --industry-nav-item-active-background: var(--primary);
+  --industry-nav-item-active-color: var(--primary-foreground);
+  
+  /* 行业卡片组件 */
+  --industry-card-height: 160px;
+  --industry-card-padding: var(--spacing-4);
+  --industry-card-border-width: 1px;
+  --industry-card-hover-scale: 1.02;
+  --industry-card-hover-shadow: var(--shadow-lg);
+  
+  /* 行业看板组件 */
+  --industry-dashboard-padding: var(--spacing-6);
+  --industry-metric-card-height: 100px;
+  --industry-metric-card-padding: var(--spacing-4);
+  
+  /* 工具工作区组件 */
+  --tool-workspace-padding: var(--spacing-4);
+  --tool-sidebar-width: 280px;
+  --tool-sidebar-width-collapsed: 64px;
+  --tool-panel-height: 80px;
+  --tool-panel-padding: var(--spacing-3);
+  
+  /* 通知系统组件 */
+  --notification-card-height: auto;
+  --notification-card-padding: var(--spacing-3);
+  --notification-toast-max-width: 320px;
+  --notification-toast-padding: var(--spacing-3);
+  --notification-toast-margin: var(--spacing-4);
+  
+  /* AI反馈组件 */
+  --ai-feedback-padding: var(--spacing-4);
+  --ai-feedback-max-width: 500px;
+  --ai-feedback-border-width: 1px;
+}
+
+/* 焦点样式 */
+:root {
+  /* 焦点轮廓 */
+  --focus-outline-width: 2px;
+  --focus-outline-color: var(--primary);
+  --focus-outline-offset: 2px;
+  
+  /* 自定义焦点样式 */
+  --focus-ring: 0 0 0 var(--focus-outline-width) var(--focus-outline-color);
+  --focus-ring-offset: var(--focus-outline-offset);
+}
+
+/* 无障碍支持 */
+:root {
+  /* 高对比度模式 */
+  --contrast-normal: 4.5:1;
+  --contrast-enhanced: 7:1;
+  --contrast-large-normal: 3:1;
+  --contrast-large-enhanced: 4.5:1;
+  
+  /* 焦点可见性 */
+  --focus-visible-outline: var(--focus-ring);
+  --focus-visible-outline-offset: var(--focus-ring-offset);
+  
+  /* 键盘导航焦点指示器 */
+  --focus-indicator-size: 8px;
+  --focus-indicator-color: var(--primary);
+  
+  /* 光标样式 */
+  --cursor-pointer: pointer;
+  --cursor-default: default;
+  --cursor-text: text;
+  --cursor-move: move;
+  --cursor-not-allowed: not-allowed;
+  --cursor-wait: wait;
+  --cursor-help: help;
+  --cursor-grab: grab;
+  --cursor-grabbing: grabbing;
+}
+
+/* 高对比度模式变量覆盖 */
+@media (prefers-contrast: high) {
+  :root {
+    /* 增强对比度颜色 */
+    --primary: #0000FF;
+    --primary-dark: #0000CC;
+    --secondary: #800080;
+    --secondary-dark: #660066;
+    
+    /* 增强边框 */
+    --border: #000000;
+    
+    /* 增强阴影 */
+    --shadow-sm: none;
+    --shadow: 0 0 0 2px #000000;
+    --shadow-md: 0 0 0 2px #000000;
+    --shadow-lg: 0 0 0 3px #000000;
+  }
+}
+
+/* 减少动画偏好支持 */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-duration-fast: 0ms;
+    --transition-duration-normal: 0ms;
+    --transition-duration-slow: 0ms;
+    --transition-duration-slower: 0ms;
+    
+    --animation-duration-fast: 0ms;
+    --animation-duration-normal: 0ms;
+    --animation-duration-slow: 0ms;
+    --animation-duration-slower: 0ms;
+    --animation-duration-1s: 0ms;
+    --animation-duration-2s: 0ms;
+  }
+}
+
+/* 打印模式变量 */
+@media print {
+  :root {
+    /* 打印友好的颜色 */
+    --background: #FFFFFF;
+    --foreground: #000000;
+    --card: #FFFFFF;
+    --card-foreground: #000000;
+    --border: #000000;
+    
+    /* 移除阴影 */
+    --shadow-sm: none;
+    --shadow: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+    --shadow-xl: none;
+    --shadow-2xl: none;
+    --shadow-inner: none;
+    
+    /* 简化边框 */
+    --card-border-width: 1px;
+    --border: #000000;
+  }
+}
+
+/* 方向支持 (RTL) */
+[dir="rtl"] {
+  /* RTL特定变量覆盖 */
+  --text-align-start: right;
+  --text-align-end: left;
+  --border-radius-tl: var(--radius-tr, var(--radius-lg));
+  --border-radius-tr: var(--radius-tl, var(--radius-lg));
+  --border-radius-bl: var(--radius-br, var(--radius-lg));
+  --border-radius-br: var(--radius-bl, var(--radius-lg));
+  
+  /* RTL间距调整 */
+  --spacing-rtl-1: var(--spacing-1);
+  --spacing-rtl-2: var(--spacing-2);
+  --spacing-rtl-3: var(--spacing-3);
+  --spacing-rtl-4: var(--spacing-4);
+  
+  /* RTL阴影调整 */
+  --shadow-md: 0 4px 6px 1px rgba(0, 0, 0, 0.1), 0 2px 4px 1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px 3px rgba(0, 0, 0, 0.1), 0 4px 6px 2px rgba(0, 0, 0, 0.05);
+}

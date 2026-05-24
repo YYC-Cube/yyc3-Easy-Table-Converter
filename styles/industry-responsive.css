@@ -1,0 +1,819 @@
+/**
+ * @file 行业组件响应式断点系统样式
+ * @description 为所有行业组件提供统一的响应式设计支持
+ * @author YYC
+ * @version 1.0.0
+ * @created 2024-10-15
+ */
+
+/* 基础断点定义 - 遵循Tailwind CSS规范 */
+:root {
+  /* 移动设备断点 */
+  --sm: 640px;
+  --md: 768px;
+  --lg: 1024px;
+  --xl: 1280px;
+  --2xl: 1536px;
+  --3xl: 1920px;
+  
+  /* 行业组件特定变量 */
+  --sidebar-width: 240px;
+  --sidebar-width-collapsed: 64px;
+  --header-height: 64px;
+  --toolbar-height: 48px;
+  --card-border-radius: 8px;
+  --transition-speed: 250ms;
+  
+  /* 行业组件间距 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  
+  /* 容器最大宽度 */
+  --container-max-sm: 640px;
+  --container-max-md: 768px;
+  --container-max-lg: 1024px;
+  --container-max-xl: 1280px;
+  --container-max-2xl: 1536px;
+}
+
+/* 通用响应式容器 */
+.industry-container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--spacing-md);
+  padding-left: var(--spacing-md);
+}
+
+/* 响应式容器断点 */
+@media (min-width: 640px) {
+  .industry-container {
+    max-width: var(--container-max-sm);
+  }
+}
+
+@media (min-width: 768px) {
+  .industry-container {
+    max-width: var(--container-max-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  .industry-container {
+    max-width: var(--container-max-lg);
+  }
+}
+
+@media (min-width: 1280px) {
+  .industry-container {
+    max-width: var(--container-max-xl);
+  }
+}
+
+@media (min-width: 1536px) {
+  .industry-container {
+    max-width: var(--container-max-2xl);
+  }
+}
+
+/* ============================== */
+/* 行业导航组件 (IndustryNav) 响应式样式 */
+/* ============================== */
+
+/* 移动端 - 折叠状态 */
+.industry-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: var(--sidebar-width);
+  background-color: var(--background);
+  border-right: 1px solid var(--border);
+  transition: transform var(--transition-speed) ease-in-out;
+  z-index: 50;
+  overflow-y: auto;
+  transform: translateX(-100%);
+}
+
+/* 移动端展开 */
+.industry-nav.open {
+  transform: translateX(0);
+}
+
+/* 平板设备 */
+@media (min-width: 768px) {
+  .industry-nav {
+    transform: translateX(0);
+    width: var(--sidebar-width-collapsed);
+  }
+  
+  .industry-nav.expanded {
+    width: var(--sidebar-width);
+  }
+}
+
+/* 桌面设备 */
+@media (min-width: 1024px) {
+  .industry-nav {
+    width: var(--sidebar-width);
+  }
+  
+  .industry-nav.collapsed {
+    width: var(--sidebar-width-collapsed);
+  }
+}
+
+/* 导航项目响应式 */
+.industry-nav-item {
+  padding: var(--spacing-sm) var(--spacing-md);
+  transition: all var(--transition-speed) ease;
+}
+
+/* 折叠状态下的导航项目 */
+.industry-nav.collapsed .industry-nav-item,
+.industry-nav:not(.expanded) .industry-nav-item {
+  padding: var(--spacing-sm) var(--spacing-xs);
+  justify-content: center;
+}
+
+/* 折叠状态下的导航文本隐藏 */
+.industry-nav.collapsed .industry-nav-text,
+.industry-nav:not(.expanded) .industry-nav-text {
+  display: none;
+}
+
+/* 导航搜索框响应式 */
+.industry-nav-search {
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.industry-nav.collapsed .industry-nav-search,
+.industry-nav:not(.expanded) .industry-nav-search {
+  display: none;
+}
+
+/* ============================== */
+/* 行业看板组件 (IndustryDashboard) 响应式样式 */
+/* ============================== */
+
+/* 看板布局 */
+.industry-dashboard {
+  padding: var(--spacing-md);
+  padding-top: calc(var(--header-height) + var(--spacing-md));
+}
+
+/* 移动端布局调整 */
+@media (max-width: 639px) {
+  .industry-dashboard {
+    padding: var(--spacing-sm);
+    padding-top: calc(var(--header-height) + var(--spacing-sm));
+  }
+  
+  /* 指标卡片单列布局 */
+  .industry-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  /* 活动日志列表调整 */
+  .activity-list {
+    font-size: 0.875rem;
+  }
+  
+  .activity-item {
+    padding: var(--spacing-sm);
+  }
+}
+
+/* 平板设备响应式 */
+@media (min-width: 640px) and (max-width: 1023px) {
+  /* 指标卡片双列布局 */
+  .industry-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+  
+  /* 看板主内容区域布局 */
+  .industry-dashboard-main {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .industry-dashboard-content,
+  .industry-dashboard-sidebar {
+    flex: 1 1 100%;
+  }
+}
+
+/* 桌面设备响应式 */
+@media (min-width: 1024px) {
+  /* 指标卡片四列布局 */
+  .industry-metrics-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+  }
+  
+  /* 看板主内容区域布局 */
+  .industry-dashboard-main {
+    flex-direction: row;
+    gap: var(--spacing-lg);
+  }
+  
+  .industry-dashboard-content {
+    flex: 1 1 70%;
+  }
+  
+  .industry-dashboard-sidebar {
+    flex: 1 1 30%;
+    max-width: 360px;
+  }
+}
+
+/* 大屏幕响应式 */
+@media (min-width: 1536px) {
+  /* 指标卡片自适应布局 */
+  .industry-metrics-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-xl);
+  }
+}
+
+/* ============================== */
+/* 行业网格和卡片组件响应式样式 */
+/* ============================== */
+
+/* 行业网格基础样式 */
+.industry-grid {
+  padding: var(--spacing-md);
+}
+
+/* 网格布局响应式 */
+.industry-card-grid {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+/* 移动端 - 单列布局 */
+@media (max-width: 639px) {
+  .industry-grid {
+    padding: var(--spacing-sm);
+  }
+  
+  .industry-card-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  /* 移动端卡片样式 */
+  .industry-card {
+    min-height: auto;
+    padding: var(--spacing-md);
+  }
+  
+  /* 卡片头部简化 */
+  .industry-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  
+  /* 搜索和过滤栏响应式 */
+  .industry-grid-controls {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .industry-grid-search,
+  .industry-grid-filters {
+    width: 100%;
+  }
+}
+
+/* 平板设备 - 双列布局 */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .industry-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+  
+  /* 平板设备搜索和过滤栏 */
+  .industry-grid-controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+  
+  .industry-grid-search {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+/* 桌面设备 - 多列布局 */
+@media (min-width: 1024px) and (max-width: 1535px) {
+  .industry-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+  }
+}
+
+/* 大屏幕设备 - 四列布局 */
+@media (min-width: 1536px) {
+  .industry-card-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+  }
+}
+
+/* 列表视图响应式 */
+.industry-card-list .industry-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--spacing-md);
+  min-height: 100px;
+}
+
+/* 移动端列表视图调整 */
+@media (max-width: 639px) {
+  .industry-card-list .industry-card {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* ============================== */
+/* 工具工作区组件 (ToolWorkspace) 响应式样式 */
+/* ============================== */
+
+/* 工作区布局 */
+.tool-workspace {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 工作区工具栏响应式 */
+.tool-workspace-toolbar {
+  height: var(--toolbar-height);
+  padding: 0 var(--spacing-md);
+}
+
+/* 标签页区域响应式 */
+.tool-workspace-tabs {
+  flex: 0 0 auto;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--border);
+}
+
+/* 主工作区区域响应式 */
+.tool-workspace-content {
+  flex: 1 1 auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 工具面板布局响应式 */
+.tool-workspace-panels {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 工具侧边栏响应式 */
+.tool-sidebar {
+  width: 280px;
+  flex: 0 0 auto;
+  background-color: var(--background);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  transition: transform var(--transition-speed) ease;
+}
+
+/* 工具主内容区域 */
+.tool-main-content {
+  flex: 1 1 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 移动端响应式 */
+@media (max-width: 639px) {
+  /* 工具栏简化 */
+  .tool-workspace-toolbar {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  /* 工具栏图标简化 */
+  .tool-toolbar-button {
+    padding: var(--spacing-xs);
+    min-width: 40px;
+  }
+  
+  .tool-toolbar-button-text {
+    display: none;
+  }
+  
+  /* 标签页简化 */
+  .tool-tab {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.875rem;
+  }
+  
+  /* 工具侧边栏抽屉式 */
+  .tool-sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 40;
+    transform: translateX(-100%);
+  }
+  
+  .tool-sidebar.open {
+    transform: translateX(0);
+  }
+  
+  /* 工具面板内容调整 */
+  .tool-panel {
+    padding: var(--spacing-sm);
+  }
+}
+
+/* 平板设备响应式 */
+@media (min-width: 640px) and (max-width: 1023px) {
+  /* 工具侧边栏宽度调整 */
+  .tool-sidebar {
+    width: 240px;
+  }
+  
+  /* 工具栏按钮调整 */
+  .tool-toolbar-button {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.875rem;
+  }
+}
+
+/* 桌面设备响应式 */
+@media (min-width: 1024px) {
+  /* 工具侧边栏默认显示 */
+  .tool-sidebar {
+    width: 280px;
+    transform: translateX(0);
+  }
+  
+  /* 工具侧边栏折叠状态 */
+  .tool-sidebar.collapsed {
+    width: 64px;
+  }
+  
+  /* 折叠状态下的工具面板内容隐藏 */
+  .tool-sidebar.collapsed .tool-panel-content {
+    display: none;
+  }
+  
+  /* 折叠状态下的工具面板标题隐藏 */
+  .tool-sidebar.collapsed .tool-panel-title {
+    display: none;
+  }
+  
+  /* 折叠状态下的工具搜索隐藏 */
+  .tool-sidebar.collapsed .tool-search {
+    display: none;
+  }
+}
+
+/* ============================== */
+/* 通知系统组件 (NotificationSystem) 响应式样式 */
+/* ============================== */
+
+/* Toast通知响应式 */
+.toast-notification {
+  max-width: 320px;
+  margin: var(--spacing-md);
+  animation: slideIn 0.3s ease-out;
+}
+
+/* 移动端Toast调整 */
+@media (max-width: 639px) {
+  .toast-notification {
+    max-width: calc(100vw - var(--spacing-sm) * 2);
+    margin: var(--spacing-sm);
+    padding: var(--spacing-sm);
+  }
+}
+
+/* 通知中心响应式 */
+.notification-center {
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+}
+
+/* 通知卡片响应式 */
+.notification-card {
+  padding: var(--spacing-md);
+  transition: all var(--transition-speed) ease;
+}
+
+@media (max-width: 639px) {
+  .notification-card {
+    padding: var(--spacing-sm);
+  }
+  
+  /* 通知文本大小调整 */
+  .notification-card-title {
+    font-size: 0.875rem;
+  }
+  
+  .notification-card-message {
+    font-size: 0.75rem;
+  }
+}
+
+/* AI反馈组件响应式 */
+.ai-feedback {
+  margin: var(--spacing-md);
+  max-width: 500px;
+}
+
+@media (max-width: 639px) {
+  .ai-feedback {
+    margin: var(--spacing-sm);
+    width: calc(100% - var(--spacing-sm) * 2);
+  }
+  
+  .ai-feedback-content {
+    font-size: 0.875rem;
+  }
+}
+
+/* ============================== */
+/* 通用响应式辅助类 */
+/* ============================== */
+
+/* 响应式显示/隐藏类 */
+
+/* 仅移动设备显示 */
+@media (max-width: 639px) {
+  .show-mobile {
+    display: block;
+  }
+  
+  .hide-mobile {
+    display: none;
+  }
+}
+
+/* 非移动设备显示 */
+@media (min-width: 640px) {
+  .show-mobile {
+    display: none;
+  }
+  
+  .hide-mobile {
+    display: block;
+  }
+}
+
+/* 仅平板设备显示 */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .show-tablet {
+    display: block;
+  }
+}
+
+@media (max-width: 639px) or (min-width: 1024px) {
+  .show-tablet {
+    display: none;
+  }
+}
+
+/* 仅桌面设备显示 */
+@media (min-width: 1024px) {
+  .show-desktop {
+    display: block;
+  }
+}
+
+@media (max-width: 1023px) {
+  .show-desktop {
+    display: none;
+  }
+}
+
+/* 仅大屏幕设备显示 */
+@media (min-width: 1536px) {
+  .show-large {
+    display: block;
+  }
+}
+
+@media (max-width: 1535px) {
+  .show-large {
+    display: none;
+  }
+}
+
+/* 响应式文本大小 */
+.text-responsive-sm {
+  font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .text-responsive-sm {
+    font-size: 1rem;
+  }
+}
+
+.text-responsive-md {
+  font-size: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .text-responsive-md {
+    font-size: 1.125rem;
+  }
+}
+
+.text-responsive-lg {
+  font-size: 1.125rem;
+}
+
+@media (min-width: 1536px) {
+  .text-responsive-lg {
+    font-size: 1.25rem;
+  }
+}
+
+/* 响应式间距 */
+.gap-responsive {
+  gap: var(--spacing-sm);
+}
+
+@media (min-width: 640px) {
+  .gap-responsive {
+    gap: var(--spacing-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  .gap-responsive {
+    gap: var(--spacing-lg);
+  }
+}
+
+/* 响应式圆角 */
+.radius-responsive {
+  border-radius: var(--card-border-radius);
+}
+
+@media (max-width: 639px) {
+  .radius-responsive {
+    border-radius: calc(var(--card-border-radius) * 0.75);
+  }
+}
+
+/* ============================== */
+/* 响应式动画和过渡 */
+/* ============================== */
+
+/* 滑动进入动画 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 淡入动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 响应式淡入动画 */
+.fade-in-responsive {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* 移动端动画加速 */
+@media (max-width: 639px) {
+  .fade-in-responsive {
+    animation-duration: 0.3s;
+  }
+}
+
+/* 响应式过渡速度 */
+.transition-responsive {
+  transition: all var(--transition-speed) ease;
+}
+
+/* 移动端过渡加速 */
+@media (max-width: 639px) {
+  .transition-responsive {
+    transition: all calc(var(--transition-speed) * 0.75) ease;
+  }
+}
+
+/* ============================== */
+/* 打印样式 */
+/* ============================== */
+
+@media print {
+  /* 隐藏导航和工具栏 */
+  .industry-nav,
+  .tool-sidebar,
+  .tool-workspace-toolbar {
+    display: none !important;
+  }
+  
+  /* 调整内容区域宽度 */
+  .industry-dashboard,
+  .industry-grid,
+  .tool-workspace-content {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* 移除卡片背景和边框 */
+  .industry-card,
+  .metric-card {
+    border: 1px solid #000;
+    background-color: white;
+    box-shadow: none;
+  }
+  
+  /* 调整字体颜色 */
+  * {
+    color: #000 !important;
+    background: white !important;
+  }
+  
+  /* 强制分页 */
+  .page-break {
+    page-break-before: always;
+  }
+}
+
+/* ============================== */
+/* 高对比度模式支持 */
+/* ============================== */
+
+@media (prefers-contrast: high) {
+  /* 增强边框对比度 */
+  .industry-nav,
+  .tool-sidebar,
+  .industry-card,
+  .metric-card {
+    border-width: 2px;
+  }
+  
+  /* 增强文本对比度 */
+  body {
+    --text-primary: #000000;
+    --text-secondary: #000000;
+  }
+}
+
+/* ============================== */
+/* 减少动画偏好支持 */
+/* ============================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* 禁用过渡和动画 */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* 移除响应式过渡 */
+  .transition-responsive {
+    transition: none;
+  }
+  
+  /* 移除淡入动画 */
+  .fade-in-responsive {
+    animation: none;
+  }
+}

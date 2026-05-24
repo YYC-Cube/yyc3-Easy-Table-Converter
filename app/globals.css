@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+
+    /* 更新配色系统 - 移除黑色,使用深蓝灰色系 */
+    --background: 220 25% 98%;
+    --foreground: 220 20% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 20%;
+
+    /* 主色调使用活力蓝紫渐变 */
+    --primary: 220 90% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 280 70% 60%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* 柔和的中性色 */
+    --muted: 220 15% 96%;
+    --muted-foreground: 220 15% 45%;
+    --accent: 200 80% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* 边框使用淡蓝灰色 */
+    --border: 220 20% 88%;
+    --input: 220 20% 88%;
+    --ring: 220 90% 56%;
+
+    /* 彩色图表色板 */
+    --chart-1: 220 90% 56%;
+    --chart-2: 160 70% 50%;
+    --chart-3: 280 70% 60%;
+    --chart-4: 30 90% 55%;
+    --chart-5: 340 80% 60%;
+
+    /* 分类卡片彩色边框 */
+    --category-data: 220 90% 56%;
+    --category-image: 280 70% 60%;
+    --category-text: 160 70% 50%;
+    --category-color: 340 80% 60%;
+    --category-unit: 30 90% 55%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 25% 98%;
+    --sidebar-foreground: 220 20% 30%;
+    --sidebar-primary: 220 90% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 95%;
+    --sidebar-accent-foreground: 220 20% 30%;
+    --sidebar-border: 220 20% 88%;
+    --sidebar-ring: 220 90% 56%;
+  }
+
+  .dark {
+    /* 深色模式使用深蓝灰色替代纯黑 */
+    --background: 220 25% 12%;
+    --foreground: 220 15% 95%;
+    --card: 220 20% 15%;
+    --card-foreground: 220 15% 95%;
+    --popover: 220 20% 15%;
+    --popover-foreground: 220 15% 95%;
+
+    --primary: 220 90% 60%;
+    --primary-foreground: 220 25% 12%;
+    --secondary: 280 70% 65%;
+    --secondary-foreground: 220 25% 12%;
+
+    --muted: 220 20% 20%;
+    --muted-foreground: 220 15% 65%;
+    --accent: 200 80% 60%;
+    --accent-foreground: 220 25% 12%;
+
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 220 15% 95%;
+
+    --border: 220 20% 25%;
+    --input: 220 20% 25%;
+    --ring: 220 90% 60%;
+
+    --chart-1: 220 90% 60%;
+    --chart-2: 160 70% 55%;
+    --chart-3: 280 70% 65%;
+    --chart-4: 30 90% 60%;
+    --chart-5: 340 80% 65%;
+
+    --category-data: 220 90% 60%;
+    --category-image: 280 70% 65%;
+    --category-text: 160 70% 55%;
+    --category-color: 340 80% 65%;
+    --category-unit: 30 90% 60%;
+
+    --sidebar-background: 220 25% 10%;
+    --sidebar-foreground: 220 15% 90%;
+    --sidebar-primary: 220 90% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 20% 18%;
+    --sidebar-accent-foreground: 220 15% 90%;
+    --sidebar-border: 220 20% 25%;
+    --sidebar-ring: 220 90% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* 使用原生 CSS 而不是 @apply 来避免类名解析问题 */
+@layer components {
+  .card-data {
+    border-left-width: 4px;
+    border-left-color: hsl(var(--category-data));
+    box-shadow: 0 0 0 1px hsl(var(--category-data) / 0.1), 0 4px 12px hsl(var(--category-data) / 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .card-data:hover {
+    box-shadow: 0 0 0 1px hsl(var(--category-data) / 0.2), 0 8px 20px hsl(var(--category-data) / 0.25);
+  }
+
+  .card-image {
+    border-left-width: 4px;
+    border-left-color: hsl(var(--category-image));
+    box-shadow: 0 0 0 1px hsl(var(--category-image) / 0.1), 0 4px 12px hsl(var(--category-image) / 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .card-image:hover {
+    box-shadow: 0 0 0 1px hsl(var(--category-image) / 0.2), 0 8px 20px hsl(var(--category-image) / 0.25);
+  }
+
+  .card-text {
+    border-left-width: 4px;
+    border-left-color: hsl(var(--category-text));
+    box-shadow: 0 0 0 1px hsl(var(--category-text) / 0.1), 0 4px 12px hsl(var(--category-text) / 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .card-text:hover {
+    box-shadow: 0 0 0 1px hsl(var(--category-text) / 0.2), 0 8px 20px hsl(var(--category-text) / 0.25);
+  }
+
+  .card-color {
+    border-left-width: 4px;
+    border-left-color: hsl(var(--category-color));
+    box-shadow: 0 0 0 1px hsl(var(--category-color) / 0.1), 0 4px 12px hsl(var(--category-color) / 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .card-color:hover {
+    box-shadow: 0 0 0 1px hsl(var(--category-color) / 0.2), 0 8px 20px hsl(var(--category-color) / 0.25);
+  }
+
+  .card-unit {
+    border-left-width: 4px;
+    border-left-color: hsl(var(--category-unit));
+    box-shadow: 0 0 0 1px hsl(var(--category-unit) / 0.1), 0 4px 12px hsl(var(--category-unit) / 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .card-unit:hover {
+    box-shadow: 0 0 0 1px hsl(var(--category-unit) / 0.2), 0 8px 20px hsl(var(--category-unit) / 0.25);
+  }
+}

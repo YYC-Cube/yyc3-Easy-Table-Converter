@@ -1,0 +1,422 @@
+<testsuites id="" name="" tests="14" failures="3" skipped="0" errors="7" time="26.702293">
+<testsuite name="core-flows.spec.ts" timestamp="2026-05-24T09:47:26.449Z" hostname="chromium" tests="14" failures="3" skipped="0" time="85.545" errors="7">
+<testcase name="YYC³ Easy Table Converter - Core User Flows › homepage should load correctly" classname="core-flows.spec.ts" time="6.617">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/core-flows-YYC³-Easy-Table-ac0d3-epage-should-load-correctly-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/core-flows-YYC³-Easy-Table-ac0d3-epage-should-load-correctly-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/core-flows-YYC³-Easy-Table-ac0d3-epage-should-load-correctly-chromium/error-context.md]]
+]]>
+</system-out>
+<failure message="expect(page).toHaveTitle(expected) failed" type="expect.toHaveTitle">
+<![CDATA[  [chromium] › core-flows.spec.ts:8:7 › YYC³ Easy Table Converter - Core User Flows › homepage should load correctly 
+
+    Error: expect(page).toHaveTitle(expected) failed
+
+    Expected pattern: /YYC³ Easy Table Converter/
+    Received string:  "Grafana"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveTitle" with timeout 5000ms
+        13 × unexpected value "Grafana"
+
+
+       7 |
+       8 |   test('homepage should load correctly', async ({ page }) => {
+    >  9 |     await expect(page).toHaveTitle(/YYC³ Easy Table Converter/);
+         |                        ^
+      10 |     
+      11 |     const header = page.locator('header');
+      12 |     await expect(header).toBeVisible();
+        at /Users/my/Desktop/YYC³ Easy Table Converter/e2e/core-flows.spec.ts:9:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/core-flows-YYC³-Easy-Table-ac0d3-epage-should-load-correctly-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/core-flows-YYC³-Easy-Table-ac0d3-epage-should-load-correctly-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/core-flows-YYC³-Easy-Table-ac0d3-epage-should-load-correctly-chromium/error-context.md
+]]>
+</failure>
+</testcase>
+<testcase name="YYC³ Easy Table Converter - Core User Flows › should navigate to CSV-JSON converter" classname="core-flows.spec.ts" time="11.651">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/core-flows-YYC³-Easy-Table-cd0f1-igate-to-CSV-JSON-converter-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/core-flows-YYC³-Easy-Table-cd0f1-igate-to-CSV-JSON-converter-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/core-flows-YYC³-Easy-Table-cd0f1-igate-to-CSV-JSON-converter-chromium/error-context.md]]
+]]>
+</system-out>
+<error message="page.click: Timeout 10000ms exceeded." type="TimeoutError">
+<![CDATA[  [chromium] › core-flows.spec.ts:18:7 › YYC³ Easy Table Converter - Core User Flows › should navigate to CSV-JSON converter 
+
+    TimeoutError: page.click: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('text=CSV to JSON')
+
+
+      17 |
+      18 |   test('should navigate to CSV-JSON converter', async ({ page }) => {
+    > 19 |     await page.click('text=CSV to JSON');
+         |                ^
+      20 |     
+      21 |     await expect(page).toHaveURL(/\/converters\/csv-json/);
+      22 |     
+        at /Users/my/Desktop/YYC³ Easy Table Converter/e2e/core-flows.spec.ts:19:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/core-flows-YYC³-Easy-Table-cd0f1-igate-to-CSV-JSON-converter-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/core-flows-YYC³-Easy-Table-cd0f1-igate-to-CSV-JSON-converter-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/core-flows-YYC³-Easy-Table-cd0f1-igate-to-CSV-JSON-converter-chromium/error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="YYC³ Easy Table Converter - Core User Flows › file upload should work for table conversion" classname="core-flows.spec.ts" time="12.083">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/core-flows-YYC³-Easy-Table-03bc8-d-work-for-table-conversion-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/core-flows-YYC³-Easy-Table-03bc8-d-work-for-table-conversion-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/core-flows-YYC³-Easy-Table-03bc8-d-work-for-table-conversion-chromium/error-context.md]]
+]]>
+</system-out>
+<error message="locator.setInputFiles: Timeout 10000ms exceeded." type="TimeoutError">
+<![CDATA[  [chromium] › core-flows.spec.ts:27:7 › YYC³ Easy Table Converter - Core User Flows › file upload should work for table conversion 
+
+    TimeoutError: locator.setInputFiles: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('input[type="file"]')
+
+
+      29 |     
+      30 |     const fileInput = page.locator('input[type="file"]');
+    > 31 |     await fileInput.setInputFiles({
+         |     ^
+      32 |       name: 'test.csv',
+      33 |       mimeType: 'text/csv',
+      34 |       buffer: Buffer.from('name,age\nJohn,30\nJane,25'),
+        at /Users/my/Desktop/YYC³ Easy Table Converter/e2e/core-flows.spec.ts:31:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/core-flows-YYC³-Easy-Table-03bc8-d-work-for-table-conversion-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/core-flows-YYC³-Easy-Table-03bc8-d-work-for-table-conversion-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/core-flows-YYC³-Easy-Table-03bc8-d-work-for-table-conversion-chromium/error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="YYC³ Easy Table Converter - Core User Flows › batch processing should handle multiple files" classname="core-flows.spec.ts" time="12.073">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/core-flows-YYC³-Easy-Table-f859d-hould-handle-multiple-files-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/core-flows-YYC³-Easy-Table-f859d-hould-handle-multiple-files-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/core-flows-YYC³-Easy-Table-f859d-hould-handle-multiple-files-chromium/error-context.md]]
+]]>
+</system-out>
+<error message="locator.setInputFiles: Timeout 10000ms exceeded." type="TimeoutError">
+<![CDATA[  [chromium] › core-flows.spec.ts:41:7 › YYC³ Easy Table Converter - Core User Flows › batch processing should handle multiple files 
+
+    TimeoutError: locator.setInputFiles: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('input[type="file"]')
+
+
+      43 |     
+      44 |     const fileInput = page.locator('input[type="file"]');
+    > 45 |     await fileInput.setInputFiles([
+         |     ^
+      46 |       {
+      47 |         name: 'file1.csv',
+      48 |         mimeType: 'text/csv',
+        at /Users/my/Desktop/YYC³ Easy Table Converter/e2e/core-flows.spec.ts:45:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/core-flows-YYC³-Easy-Table-f859d-hould-handle-multiple-files-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/core-flows-YYC³-Easy-Table-f859d-hould-handle-multiple-files-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/core-flows-YYC³-Easy-Table-f859d-hould-handle-multiple-files-chromium/error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Conversion Features › Excel-CSV conversion should work" classname="core-flows.spec.ts" time="11.405">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/core-flows-Conversion-Feat-67139--CSV-conversion-should-work-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/core-flows-Conversion-Feat-67139--CSV-conversion-should-work-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/core-flows-Conversion-Feat-67139--CSV-conversion-should-work-chromium/error-context.md]]
+]]>
+</system-out>
+<error message="locator.setInputFiles: Timeout 10000ms exceeded." type="TimeoutError">
+<![CDATA[  [chromium] › core-flows.spec.ts:64:7 › Conversion Features › Excel-CSV conversion should work ────
+
+    TimeoutError: locator.setInputFiles: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('input[type="file"]')
+
+
+      66 |     
+      67 |     const fileInput = page.locator('input[type="file"]');
+    > 68 |     await fileInput.setInputFiles({
+         |     ^
+      69 |       name: 'test.xlsx',
+      70 |       mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      71 |       buffer: Buffer.from('dummy excel content'),
+        at /Users/my/Desktop/YYC³ Easy Table Converter/e2e/core-flows.spec.ts:68:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/core-flows-Conversion-Feat-67139--CSV-conversion-should-work-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/core-flows-Conversion-Feat-67139--CSV-conversion-should-work-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/core-flows-Conversion-Feat-67139--CSV-conversion-should-work-chromium/error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Conversion Features › JSON-XML conversion should display output" classname="core-flows.spec.ts" time="0.455">
+</testcase>
+<testcase name="Conversion Features › image compression should show preview" classname="core-flows.spec.ts" time="10.534">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/core-flows-Conversion-Feat-46718-ression-should-show-preview-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/core-flows-Conversion-Feat-46718-ression-should-show-preview-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/core-flows-Conversion-Feat-46718-ression-should-show-preview-chromium/error-context.md]]
+]]>
+</system-out>
+<error message="locator.setInputFiles: Timeout 10000ms exceeded." type="TimeoutError">
+<![CDATA[  [chromium] › core-flows.spec.ts:94:7 › Conversion Features › image compression should show preview 
+
+    TimeoutError: locator.setInputFiles: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('input[type="file"]')
+
+
+       96 |     
+       97 |     const fileInput = page.locator('input[type="file"]');
+    >  98 |     await fileInput.setInputFiles({
+          |     ^
+       99 |       name: 'test.png',
+      100 |       mimeType: 'image/png',
+      101 |       buffer: Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==', 'base64'),
+        at /Users/my/Desktop/YYC³ Easy Table Converter/e2e/core-flows.spec.ts:98:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/core-flows-Conversion-Feat-46718-ression-should-show-preview-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/core-flows-Conversion-Feat-46718-ression-should-show-preview-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/core-flows-Conversion-Feat-46718-ression-should-show-preview-chromium/error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="User Interface &amp; Accessibility › responsive design should work on mobile" classname="core-flows.spec.ts" time="5.636">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/core-flows-User-Interface--d9c66-esign-should-work-on-mobile-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/core-flows-User-Interface--d9c66-esign-should-work-on-mobile-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/core-flows-User-Interface--d9c66-esign-should-work-on-mobile-chromium/error-context.md]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeVisible() failed" type="expect.toBeVisible">
+<![CDATA[  [chromium] › core-flows.spec.ts:110:7 › User Interface & Accessibility › responsive design should work on mobile 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('header')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('header')
+
+
+      113 |     
+      114 |     const header = page.locator('header');
+    > 115 |     await expect(header).toBeVisible();
+          |                          ^
+      116 |     
+      117 |     const menuToggle = page.locator('button[aria-label*="menu"], button[aria-label*="Menu"], .hamburger');
+      118 |     if (await menuToggle.isVisible()) {
+        at /Users/my/Desktop/YYC³ Easy Table Converter/e2e/core-flows.spec.ts:115:26
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/core-flows-User-Interface--d9c66-esign-should-work-on-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/core-flows-User-Interface--d9c66-esign-should-work-on-mobile-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/core-flows-User-Interface--d9c66-esign-should-work-on-mobile-chromium/error-context.md
+]]>
+</failure>
+</testcase>
+<testcase name="User Interface &amp; Accessibility › dark mode toggle should work" classname="core-flows.spec.ts" time="0.884">
+</testcase>
+<testcase name="User Interface &amp; Accessibility › error boundary should catch errors gracefully" classname="core-flows.spec.ts" time="0.391">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/core-flows-User-Interface--5e8c7-uld-catch-errors-gracefully-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/core-flows-User-Interface--5e8c7-uld-catch-errors-gracefully-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/core-flows-User-Interface--5e8c7-uld-catch-errors-gracefully-chromium/error-context.md]]
+]]>
+</system-out>
+<error message="jest is not defined" type="ReferenceError">
+<![CDATA[  [chromium] › core-flows.spec.ts:138:7 › User Interface & Accessibility › error boundary should catch errors gracefully 
+
+    ReferenceError: jest is not defined
+
+      137 |
+      138 |   test('error boundary should catch errors gracefully', async ({ page }) => {
+    > 139 |     console.log = jest.fn();
+          |                   ^
+      140 |     
+      141 |     await page.goto('/nonexistent-page-that-does-not-exist');
+      142 |     
+        at /Users/my/Desktop/YYC³ Easy Table Converter/e2e/core-flows.spec.ts:139:19
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/core-flows-User-Interface--5e8c7-uld-catch-errors-gracefully-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/core-flows-User-Interface--5e8c7-uld-catch-errors-gracefully-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/core-flows-User-Interface--5e8c7-uld-catch-errors-gracefully-chromium/error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Performance Tests › page load should complete within time limit" classname="core-flows.spec.ts" time="1.387">
+<system-out>
+<![CDATA[Page load time: 1114ms
+]]>
+</system-out>
+</testcase>
+<testcase name="Performance Tests › large file upload should not block UI" classname="core-flows.spec.ts" time="10.635">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/core-flows-Performance-Tes-0faff--upload-should-not-block-UI-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/core-flows-Performance-Tes-0faff--upload-should-not-block-UI-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/core-flows-Performance-Tes-0faff--upload-should-not-block-UI-chromium/error-context.md]]
+]]>
+</system-out>
+<error message="locator.setInputFiles: Timeout 10000ms exceeded." type="TimeoutError">
+<![CDATA[  [chromium] › core-flows.spec.ts:160:7 › Performance Tests › large file upload should not block UI 
+
+    TimeoutError: locator.setInputFiles: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for locator('input[type="file"]')
+
+
+      164 |     
+      165 |     const fileInput = page.locator('input[type="file"]');
+    > 166 |     await fileInput.setInputFiles({
+          |     ^
+      167 |       name: 'large-file.csv',
+      168 |       mimeType: 'text/csv',
+      169 |       buffer: Buffer.from(largeFileContent),
+        at /Users/my/Desktop/YYC³ Easy Table Converter/e2e/core-flows.spec.ts:166:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/core-flows-Performance-Tes-0faff--upload-should-not-block-UI-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/core-flows-Performance-Tes-0faff--upload-should-not-block-UI-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/core-flows-Performance-Tes-0faff--upload-should-not-block-UI-chromium/error-context.md
+]]>
+</error>
+</testcase>
+<testcase name="Form Validation › required fields should show validation errors" classname="core-flows.spec.ts" time="1.121">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/core-flows-Form-Validation-3ad81-ould-show-validation-errors-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|../test-results/core-flows-Form-Validation-3ad81-ould-show-validation-errors-chromium/video.webm]]
+
+[[ATTACHMENT|../test-results/core-flows-Form-Validation-3ad81-ould-show-validation-errors-chromium/error-context.md]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeVisible() failed" type="expect.toBeVisible">
+<![CDATA[  [chromium] › core-flows.spec.ts:181:7 › Form Validation › required fields should show validation errors 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: .error-message, [role="alert"], text=Required >> nth=0
+    Expected: visible
+    Error: Unexpected token "=" while parsing css selector ".error-message, [role="alert"], text=Required". Did you mean to CSS.escape it?
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for .error-message, [role="alert"], text=Required >> nth=0
+
+
+      187 |       
+      188 |       const errorMessage = page.locator('.error-message, [role="alert"], text=Required');
+    > 189 |       await expect(errorMessage.first()).toBeVisible();
+          |                                          ^
+      190 |     }
+      191 |   });
+      192 |
+        at /Users/my/Desktop/YYC³ Easy Table Converter/e2e/core-flows.spec.ts:189:42
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/core-flows-Form-Validation-3ad81-ould-show-validation-errors-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/core-flows-Form-Validation-3ad81-ould-show-validation-errors-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/core-flows-Form-Validation-3ad81-ould-show-validation-errors-chromium/error-context.md
+]]>
+</failure>
+</testcase>
+<testcase name="Form Validation › email validation should work correctly" classname="core-flows.spec.ts" time="0.673">
+</testcase>
+</testsuite>
+</testsuites>

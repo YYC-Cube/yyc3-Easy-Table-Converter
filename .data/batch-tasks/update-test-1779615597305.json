@@ -1,0 +1,15 @@
+{
+  "id": "update-test-1779615597305",
+  "status": "processing",
+  "files": [
+    {
+      "name": "test.csv",
+      "format": "csv",
+      "status": "pending"
+    }
+  ],
+  "outputFormat": "json",
+  "options": {},
+  "createdAt": "2026-05-24T09:39:57.305Z",
+  "progress": 50
+}
