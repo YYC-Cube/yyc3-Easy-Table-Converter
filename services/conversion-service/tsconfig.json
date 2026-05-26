@@ -25,7 +25,6 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
     
     /* 模块解析选项 */
     "moduleResolution": "node",

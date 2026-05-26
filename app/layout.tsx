@@ -15,14 +15,14 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  metadataBase: new URL('https://yyc3.com'),
+  metadataBase: new URL('https://table.yyc3.top'),
   title: {
     default: 'YYC³ Easy Table Converter - 企业级表格转换工具',
     template: '%s | YYC³ 表格转换',
   },
   description: '高效的企业级表格转换工具，支持Excel、CSV、JSON、XML、Markdown等多种格式互转。提供批量转换、SQL生成、图片处理等实用功能。',
   keywords: ['表格转换', 'Excel转换', 'CSV转换', 'JSON转换', '数据转换', '在线工具'],
-  authors: [{ name: 'YYC³ Team', url: 'https://yyc3.com' }],
+  authors: [{ name: 'YYC³ Team', url: 'https://table.yyc3.top' }],
   creator: 'YYC³',
   publisher: 'YYC³',
   formatDetection: {
@@ -39,7 +39,7 @@ export const metadata = {
     apple: [
       { url: '/yyc3-icons/ios/icon-60@3x.png', sizes: '180x180', type: 'image/png' },
       { url: '/yyc3-icons/ios/icon-76.png', sizes: '76x76', type: 'image/png' },
-      { url: '/yyc3-icons/ios/icon-152.png', sizes: '152x152', type: 'image/png' },
+      { url: '/yyc3-icons/ios/icon-76@2x.png', sizes: '152x152', type: 'image/png' },
     ],
     other: [
       { url: '/yyc3-icons/pwa/icon-192x192.png', sizes: '192x192', type: 'image/png', rel: 'apple-touch-icon' },
@@ -58,7 +58,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'zh_CN',
-    url: 'https://yyc3.com',
+    url: 'https://table.yyc3.top',
     siteName: 'YYC³ Easy Table Converter',
     title: 'YYC³ Easy Table Converter - 企业级表格转换工具',
     description: '高效的企业级表格转换工具，支持多种格式互转',

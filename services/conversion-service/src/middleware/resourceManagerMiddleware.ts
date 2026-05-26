@@ -341,4 +341,5 @@ export function getResourceManagerInstance(): ResourceManager {
 }
 
 // 导出类供测试使用
-export { ResourceManager, ResourceManagerConfig };
+export { ResourceManager };
+export type { ResourceManagerConfig };

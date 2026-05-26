@@ -292,8 +292,7 @@ export class DataProcessorService {
     const writeStream = createWriteStream(outputPath);
     
     // 写入JSON数组开始标记
-    writeStream.write('[
-');
+    writeStream.write('[\n');
     
     let isFirst = true;
     let chunkCount = 0;

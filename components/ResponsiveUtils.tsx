@@ -174,7 +174,7 @@ export const useResponsive = (): ResponsiveUtils => {
   }, []);
   
   // 获取响应式配置值
-  const getValue = useCallback(<T>(values: Partial<Record<keyof typeof BREAKPOINTS, T>>): T | undefined => {
+  const getValue = useCallback(<T,>(values: Partial<Record<keyof typeof BREAKPOINTS, T>>): T | undefined => {
     return ResponsiveHelper.getResponsiveValue(viewportWidth, values);
   }, [viewportWidth]);
   

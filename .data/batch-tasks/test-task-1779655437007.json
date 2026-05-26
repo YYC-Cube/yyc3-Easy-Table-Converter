@@ -1,0 +1,20 @@
+{
+  "id": "test-task-1779655437007",
+  "status": "pending",
+  "files": [
+    {
+      "name": "file1.csv",
+      "format": "csv",
+      "status": "pending"
+    },
+    {
+      "name": "file2.csv",
+      "format": "csv",
+      "status": "pending"
+    }
+  ],
+  "outputFormat": "json",
+  "options": {},
+  "createdAt": "2026-05-24T20:43:57.007Z",
+  "progress": 0
+}

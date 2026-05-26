@@ -426,7 +426,7 @@ export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
     const textStyles = getTextStyles();
     
     return (
-      >
+      <div>
         {showIcon && iconComponent && (
           <div 
             className={`loading-icon ${iconColorValue ? `text-[${iconColorValue}]` : ''}`}
@@ -443,7 +443,7 @@ export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
             {currentText}
           </p>
         )}
-      </
+      </div>
     );
   };
   
@@ -586,7 +586,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
           }
           
           // 如果到达目标值，停止动画
-          if ((diff > 0 && updated >= newValue) || (diff &lt; 0 && updated <= newValue)) {
+          if ((diff > 0 && updated >= newValue) || (diff < 0 && updated <= newValue)) {
             // 进度完成时调用回调
             if (newValue === 100 && onComplete) {
               onComplete();
@@ -735,7 +735,10 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   
   // 渲染进度条
   const renderProgressBar = () => (
-    
+    <div 
+      className={`progress-bar ${barClassName}`}
+      style={getBarStyles()}
+    />
   );
   
   // 渲染标签
@@ -762,14 +765,14 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
       aria-valuenow={progressValue}
       aria-valuemin={0}
       aria-valuemax={100}
-    
+    >
       {labelPosition === 'inside' && showLabel && renderLabel()}
       <div 
         className={`progress-bar ${barClassName}`}
         style={getBarStyles()}
       />
       {labelPosition === 'outside' && showLabel && renderLabel()}
-    
+    </div>
   );
 };
 
@@ -1120,9 +1123,7 @@ export const SkeletonCard: React.FC<SkeletonCardProps> = ({
     if (!showActions) return null;
     
     return (
-      <div className="flex gap-2 mt-3"
-        
-      
+      <div className="flex gap-2 mt-3">
         {Array.from({ length: actionCount }, (_, index) => (
           <Skeleton
             key={`action-${index}`}
@@ -1134,13 +1135,11 @@ export const SkeletonCard: React.FC<SkeletonCardProps> = ({
             animate={props.animate}
           />
         ))}
-      
-    
-  );
+      </div>
+    );
   
   return (
-    <div style={getCardStyles()}
-      
+    <div style={getCardStyles()}>
       {showImage && (
         <Skeleton
           width="100%"
@@ -1190,7 +1189,7 @@ export const SkeletonCard: React.FC<SkeletonCardProps> = ({
           className="mt-4"
         />
       )}
-    
+    </div>
   );
 };
 
@@ -1245,3 +1244,4 @@ export const progressUtils = {
 };
 
 export default progressIndicators;
+}

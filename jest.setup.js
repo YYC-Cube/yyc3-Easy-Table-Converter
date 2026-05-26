@@ -38,4 +38,29 @@ if (typeof window !== 'undefined') {
     unobserve() {}
     disconnect() {}
   };
+
+  // Mock toast function (used by shadcn/ui toast component)
+  global.toast = jest.fn(() => ({
+    id: 'mock-toast-id',
+    dismiss: jest.fn(),
+    update: jest.fn(),
+  }));
+
+  // Mock clipboard API
+  Object.defineProperty(window.navigator, 'clipboard', {
+    value: {
+      writeText: jest.fn(() => Promise.resolve()),
+      readText: jest.fn(() => Promise.resolve('')),
+    },
+    writable: true,
+  });
+
+  // Mock IntersectionObserver
+  global.IntersectionObserver = class IntersectionObserver {
+    constructor(callback) {}
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+    takeRecords() { return []; }
+  };
 }

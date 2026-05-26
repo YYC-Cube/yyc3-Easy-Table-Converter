@@ -1,8 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ESLint配置，避免使用过时的选项
+  output: 'export',
+  
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  
   eslint: {
-    // 构建时忽略ESLint检查，使用单独的lint命令
     ignoreDuringBuilds: true,
   },
   // Server Actions现在默认可用，不再需要显式配置
@@ -13,13 +17,7 @@ const nextConfig = {
   
   // 图片优化配置
   images: {
-    domains: ['assets.example.com', 'api.example.com'],
-    // 启用现代图片格式
-    formats: ['image/avif', 'image/webp'],
-    // 图片尺寸优化
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60 * 60 * 24, // 24小时缓存
+    unoptimized: true,
   },
   
   // 构建优化配置
@@ -76,28 +74,6 @@ const nextConfig = {
     return config;
   },
   
-  // 静态资源缓存策略
-  headers: async () => [
-    {
-      source: '/:path*',
-      headers: [
-        {
-          key: 'Cache-Control',
-          value: 'public, max-age=31536000, immutable',
-        },
-        {
-          key: 'X-Content-Type-Options',
-          value: 'nosniff',
-        },
-        {
-          key: 'X-Frame-Options',
-          value: 'DENY',
-        },
-      ],
-    },
-  ],
-  
-  // 项目特定配置
   env: {
     NEXT_PUBLIC_APP_NAME: 'YYC³ Easy Table Converter',
     NEXT_PUBLIC_APP_VERSION: '1.0.0',

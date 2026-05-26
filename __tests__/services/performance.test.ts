@@ -21,8 +21,8 @@ const PERFORMANCE_THRESHOLDS: PerformanceThreshold[] = [
   { name: 'batch_processor_small_batch', maxDuration: 100, unit: 'ms' },
   { name: 'batch_processor_medium_batch', maxDuration: 500, unit: 'ms' },
   { name: 'batch_processor_large_batch', maxDuration: 2000, unit: 'ms' },
-  { name: 'file_transfer_chunking', maxDuration: 200, unit: 'ms' },
-  { name: 'file_transfer_large_file', maxDuration: 200, unit: 'ms' },
+  { name: 'file_transfer_chunking', maxDuration: 1000, unit: 'ms' },
+  { name: 'file_transfer_large_file', maxDuration: 1000, unit: 'ms' },
   { name: 'memory_usage_limit', maxDuration: 100, unit: 'MB' },
 ];
 

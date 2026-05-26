@@ -72,7 +72,7 @@ export function useErrorReporter(options: ErrorReporterOptions = {}) {
   }, [enabled, onError]);
 
   useEffect(() => {
-    if (!enabled || typeof window === 'undefined') return;
+    if (!enabled || typeof window === 'undefined') return undefined;
 
     const handleGlobalError = (event: ErrorEvent) => {
       reportError(

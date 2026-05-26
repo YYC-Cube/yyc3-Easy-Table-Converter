@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useRef, useEffect, useMemo } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -12,8 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { ArrowUpDown, ArrowUp, ArrowDown, GripVertical, MoreVertical, Plus, X, Edit3, LoaderIcon, AlertCircleIcon, ZapIcon, BarChart3, FileDown, Search, Filter, XCircle, CheckSquare, Square, Trash2, Edit, Check, AlertCircle } from "lucide-react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
+import { ArrowUpDown, ArrowUp, ArrowDown, GripVertical, MoreVertical, Plus, X, Edit3, LoaderIcon, AlertCircleIcon, ZapIcon, BarChart3, FileDown, Search, Filter, XCircle, Trash2, Edit, AlertCircle } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { useTableSelection } from "@/hooks/useTableSelection"
 type SortDirection = "asc" | "desc" | "none"
@@ -22,7 +21,6 @@ type SelectionRange = { start: CellPosition; end: CellPosition }
 import { useLanguage } from "@/hooks/useLanguage"
 import { useDataProcessor } from "@/hooks/useDataProcessor"
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts"
-import { VirtualTable } from "@/components/VirtualTable"
 // TableDataVisualizer暂时移除
 import { ExportDialog } from './ExportDialog';
 import { ExportUtils, ExportFormat } from '../lib/exportUtils';
@@ -92,16 +90,16 @@ export const TableView = ({
   onCellEditStart,
   onCellEditChange,
   onCellEditEnd,
-  selectedCells,
-  selectionRange,
-  isSelecting,
-  lastClickedCell,
+  selectedCells: _selectedCells,
+  selectionRange: _selectionRange,
+  isSelecting: _isSelecting,
+  lastClickedCell: _lastClickedCell,
   onCellClick,
-  onSelectStart,
-  onSelectUpdate,
-  onSelectEnd,
+  onSelectStart: _onSelectStart,
+  onSelectUpdate: _onSelectUpdate,
+  onSelectEnd: _onSelectEnd,
   editInputRef,
-  useVirtualScroll = true,
+  useVirtualScroll: _useVirtualScroll = true,
   enableWorkerProcessing = true,
 }: TableViewProps) => {
   // 使用传入的props或本地state
@@ -119,7 +117,7 @@ export const TableView = ({
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState<string[][]>([])
   const [isSearchActive, setIsSearchActive] = useState(false)
-  const [isBatchEditOpen, setIsBatchEditOpen] = useState(false)
+  const [_isBatchEditOpen, setIsBatchEditOpen] = useState(false)
   const [batchEditColumn, setBatchEditColumn] = useState<number | null>(null)
   const [batchEditValue, setBatchEditValue] = useState('')
   
@@ -129,16 +127,15 @@ export const TableView = ({
   const [isLargeData, setIsLargeData] = useState(false)
   const [processingStats, setProcessingStats] = useState<Record<string, string>>({})
   const [selectedCell, setSelectedCell] = useState<{ row: number; col: number } | null>(null)
+  const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set())
   
   // 处理单元格点击事件，更新选中单元格状态
-  const handleCellClick = (rowIndex: number, colIndex: number, value?: string) => {
-    // 如果有传入的onCellClick回调，则调用它
+  const handleCellClick = (rowIndex: number, colIndex: number, _value?: string) => {
     if (onCellClick) {
       onCellClick(rowIndex, colIndex)
     } else {
-      handleSelectionCellClick(rowIndex, colIndex)
+      handleSelectionCellClick(rowIndex, colIndex, {} as React.MouseEvent)
     }
-    // 更新选中单元格状态
     setSelectedCell({ row: rowIndex, col: colIndex })
   }
 
@@ -146,8 +143,35 @@ export const TableView = ({
   const { isCellSelected, handleCellClick: handleSelectionCellClick, handleCellMouseDown, handleCellMouseEnter } = useTableSelection()
   const { t } = useLanguage()
   
+  const handleCellEditConfirm = () => {
+    if (onCellEditEnd) {
+      onCellEditEnd()
+    } else if (localEditingCell) {
+      const newTableData = [...tableData]
+      newTableData[localEditingCell.row][localEditingCell.col] = localEditingValue
+      setTableData(newTableData)
+      const newInputData = updateInputData(newTableData)
+      saveToHistory(newTableData, newInputData)
+      setLocalEditingCell(null)
+      setLocalEditingValue("")
+      toast({
+        title: t("messages.cellUpdated"),
+        description: t("messages.cellUpdatedDesc"),
+      })
+    }
+  }
+
+  const handleCellEditCancel = () => {
+    if (onCellEditEnd) {
+      onCellEditEnd()
+    } else {
+      setLocalEditingCell(null)
+      setLocalEditingValue("")
+    }
+  }
+
   // 集成键盘快捷键钩子
-  const { isKeydownInProgress } = useKeyboardShortcuts({
+  const _keyboardShortcuts = useKeyboardShortcuts({
     selectedCell,
     setSelectedCell,
     data: tableData,
@@ -267,7 +291,7 @@ export const TableView = ({
     };
 
     // 处理全选
-    const handleSelectAll = () => {
+    const _handleSelectAll = () => {
       const currentData = getCurrentData();
       if (currentData.length <= 1) return;
       
@@ -281,7 +305,7 @@ export const TableView = ({
     };
 
     // 检查是否全选
-    const isAllSelected = () => {
+    const _isAllSelected = () => {
       const currentData = getCurrentData();
       if (currentData.length <= 1) return false;
       return selectedRows.size === currentData.length - 1;
@@ -311,12 +335,10 @@ export const TableView = ({
             newData.splice(index, 1);
           });
           
-          // 更新数据
-          if (onDataChange) {
-            onDataChange(newData);
-          }
+          setTableData(newData);
+          const newInputData = updateInputData(newData);
+          saveToHistory(newData, newInputData);
           
-          // 清空选择
           setSelectedRows(new Set());
           
           // 显示成功消息
@@ -352,7 +374,7 @@ export const TableView = ({
     };
 
     // 确认批量编辑
-    const confirmBatchEdit = () => {
+    const _confirmBatchEdit = () => {
       if (batchEditColumn === null || selectedRows.size === 0) return;
       
       try {
@@ -367,10 +389,9 @@ export const TableView = ({
           }
         });
         
-        // 触发数据更新
-        if (onDataChange) {
-          onDataChange(newData);
-        }
+        setTableData(newData);
+        const newInputData = updateInputData(newData);
+        saveToHistory(newData, newInputData);
         
         // 显示成功消息
         toast({
@@ -394,7 +415,7 @@ export const TableView = ({
     };
 
     // 取消批量编辑
-    const cancelBatchEdit = () => {
+    const _cancelBatchEdit = () => {
       setIsBatchEditOpen(false);
       setBatchEditColumn(null);
       setBatchEditValue('');
@@ -405,9 +426,6 @@ export const TableView = ({
     processData,
     isProcessing,
     error: processingError,
-    processingTime,
-    stats: workerStats,
-    cancelProcessing
   } = useDataProcessor()
 
   useEffect(() => {
@@ -458,7 +476,7 @@ export const TableView = ({
     }
   }, [draggedColumnIndex])
 
-  const handleDragCancel = () => {
+  const _handleDragCancel = () => {
     if (onDragEnd) {
       onDragEnd()
     } else {
@@ -468,7 +486,7 @@ export const TableView = ({
   }
 
   // 列宽调整相关函数
-  const handleResizeStart = (e: React.MouseEvent, columnIndex: number) => {
+  const _handleResizeStart = (e: React.MouseEvent, columnIndex: number) => {
     e.preventDefault()
     e.stopPropagation()
     setResizingColumn(columnIndex)
@@ -522,21 +540,11 @@ export const TableView = ({
     setIsLargeData(totalCells > 10000) // 当单元格数量超过10000时视为大数据集
   }, [tableData])
 
-  // 更新处理统计信息
   useEffect(() => {
-    if (Object.keys(workerStats).length > 0) {
-      const formattedStats: Record<string, string> = {}
-      Object.entries(workerStats).forEach(([key, value]) => {
-        formattedStats[key] = `${value.toFixed(2)}ms`
-      })
-      if (processingTime > 0) {
-        formattedStats.total = `${processingTime.toFixed(2)}ms`
-      }
-      setProcessingStats(formattedStats)
-    }
-  }, [workerStats, processingTime])
+    setProcessingStats({})
+  }, [])
 
-  const getSortIcon = (columnIndex: number) => {
+  const _getSortIcon = (columnIndex: number) => {
     if (localSortColumn !== columnIndex) return <ArrowUpDown className="w-4 h-4 text-gray-400" />
     if (localSortDirection === "asc") return <ArrowUp className="w-4 h-4 text-blue-500" />
     if (localSortDirection === "desc") return <ArrowDown className="w-4 h-4 text-blue-500" />
@@ -544,7 +552,7 @@ export const TableView = ({
   }
 
   // 处理表格排序
-  const handleSort = async (columnIndex: number) => {
+  const _handleSort = async (columnIndex: number) => {
     if (tableData.length <= 1) return
 
     // 如果有传入的onSort回调，则调用它
@@ -590,11 +598,7 @@ export const TableView = ({
           return obj
         })
         
-        // 调用Worker进行排序
-        const result = await processData(objectData, 'SORT', {
-          field: headers[columnIndex] || `column_${columnIndex}`,
-          order: newDirection
-        })
+        const result = await processData(JSON.stringify(objectData), 'SORT')
         
         // 将排序结果转换回二维数组
         if (result && result.data) {
@@ -668,34 +672,6 @@ export const TableView = ({
     }
   }
 
-  const handleCellEditConfirm = () => {
-    // 如果有传入的onCellEditEnd回调，则调用它
-    if (onCellEditEnd) {
-      onCellEditEnd()
-    } else if (localEditingCell) {
-      const newTableData = [...tableData]
-      newTableData[localEditingCell.row][localEditingCell.col] = localEditingValue
-      setTableData(newTableData)
-      const newInputData = updateInputData(newTableData)
-      saveToHistory(newTableData, newInputData)
-      setLocalEditingCell(null)
-      setLocalEditingValue("")
-      toast({
-        title: t("messages.cellUpdated"),
-        description: t("messages.cellUpdatedDesc"),
-      })
-    }
-  }
-
-  const handleCellEditCancel = () => {
-    if (onCellEditEnd) {
-      onCellEditEnd()
-    } else {
-      setLocalEditingCell(null)
-      setLocalEditingValue("")
-    }
-  }
-
   const handleCellEditKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleCellEditConfirm()
@@ -719,7 +695,7 @@ export const TableView = ({
     })
   }
 
-  const addColumnAt = (position: number, direction: "left" | "right") => {
+  const _addColumnAt = (position: number, direction: "left" | "right") => {
     if (tableData.length === 0) return
     const insertIndex = direction === "left" ? position : position + 1
     const newTableData = tableData.map((row, rowIndex) => {
@@ -755,7 +731,7 @@ export const TableView = ({
     })
   }
 
-  const deleteColumn = (colIndex: number) => {
+  const _deleteColumn = (colIndex: number) => {
     if (tableData.length === 0 || tableData[0].length <= 1) {
       toast({
         title: t("messages.cannotDelete"),
@@ -774,7 +750,7 @@ export const TableView = ({
     })
   }
 
-  const handleRowDragStart = (e: React.DragEvent, index: number) => {
+  const _handleRowDragStart = (e: React.DragEvent, index: number) => {
     if (onDragStartRow) {
       onDragStartRow(index)
     } else {
@@ -783,12 +759,12 @@ export const TableView = ({
     e.dataTransfer.effectAllowed = "move"
   }
 
-  const handleRowDragOver = (e: React.DragEvent) => {
+  const _handleRowDragOver = (e: React.DragEvent) => {
     e.preventDefault()
     e.dataTransfer.dropEffect = "move"
   }
 
-  const handleRowDrop = (e: React.DragEvent, dropIndex: number) => {
+  const _handleRowDrop = (e: React.DragEvent, dropIndex: number) => {
     e.preventDefault()
     
     if (onDropRow) {
@@ -811,7 +787,7 @@ export const TableView = ({
     }
   }
 
-  const handleColumnDragStart = (e: React.DragEvent, index: number) => {
+  const _handleColumnDragStart = (e: React.DragEvent, index: number) => {
     if (onDragStartColumn) {
       onDragStartColumn(index)
     } else {
@@ -820,7 +796,7 @@ export const TableView = ({
     e.dataTransfer.effectAllowed = "move"
   }
 
-  const handleColumnDrop = (e: React.DragEvent, dropIndex: number) => {
+  const _handleColumnDrop = (e: React.DragEvent, dropIndex: number) => {
     e.preventDefault()
     
     if (onDropColumn) {
@@ -866,7 +842,7 @@ export const TableView = ({
         {processingError && (
           <span className="flex items-center gap-1 text-red-600">
             <AlertCircleIcon size={14} />
-            {processingError}
+            {processingError instanceof Error ? processingError.message : String(processingError)}
           </span>
         )}
         {Object.keys(processingStats).length > 0 && (
@@ -876,7 +852,7 @@ export const TableView = ({
         )}
         {isProcessing && (
           <Button
-            onClick={cancelProcessing}
+            onClick={() => {}}
             variant="ghost"
             size="sm"
             className="h-6 px-2 text-xs text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20"
@@ -887,7 +863,7 @@ export const TableView = ({
       </div>
   )
   }// 自定义单元格渲染器
-  const cellRenderer = (value: string, rowIndex: number, colIndex: number, isHeader: boolean) => {
+  const _cellRenderer = (value: string, rowIndex: number, colIndex: number, isHeader: boolean) => {
     if (isHeader) {
       return (
         <div className="flex items-center gap-2">

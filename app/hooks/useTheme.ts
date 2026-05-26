@@ -46,7 +46,7 @@ export const useTheme = (): { theme: Theme; setTheme: (theme: Theme) => void; is
 
   // 监听系统主题变化
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return undefined;
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {

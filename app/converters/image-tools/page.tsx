@@ -193,56 +193,72 @@ export default function ImageToolsPage() {
       <Tabs defaultValue="all" className="w-full" onValueChange={setActiveTab}>
         <TabsList className="mb-6">
           <TabsTrigger value="all">全部工具</TabsTrigger>
-          <TabsTrigger value="基础">基础处理</TabsTrigger>
-          <TabsTrigger value="高级">高级处理</TabsTrigger>
+          <TabsTrigger value="basic">基础处理</TabsTrigger>
+          <TabsTrigger value="advanced">高级处理</TabsTrigger>
           <TabsTrigger value="ai">AI 功能</TabsTrigger>
         </TabsList>
 
-        {filteredTools.map((category) => (
-          <TabsContent key={category.category} value={category.category.toLowerCase().includes('基础') ? '基础' : category.category.toLowerCase().includes('高级') ? '高级' : category.category.toLowerCase().includes('ai') ? 'ai' : 'all'} className="space-y-4">
-            <div className="flex items-center gap-2 mb-4">
-              <h2 className="text-xl font-semibold">{category.category}</h2>
+        <TabsContent value="all" className="space-y-8">
+          {filteredTools.map((category) => (
+            <div key={category.category}>
+              <div className="flex items-center gap-2 mb-4">
+                <h2 className="text-xl font-semibold">{category.category}</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {category.tools.map((tool) => (
+                  <ToolCard
+                    key={tool.href}
+                    title={tool.title}
+                    description={tool.description}
+                    icon={tool.icon}
+                    href={tool.href}
+                    badge={tool.badge}
+                  />
+                ))}
+              </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {category.tools.map((tool) => (
-                <ToolCard
-                  key={tool.href}
-                  title={tool.title}
-                  description={tool.description}
-                  icon={tool.icon}
-                  href={tool.href}
-                  badge={tool.badge}
-                />
-              ))}
-            </div>
-          </TabsContent>
-        ))}
-      </Tabs>
+          ))}
+        </TabsContent>
 
-      <TabsContent value="all" className="space-y-8">
-        {imageTools.map((category) => (
-          <div key={category.category}>
-            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              {category.category}
-              <span className="text-sm font-normal text-muted-foreground">
-                ({category.tools.length} 个工具)
-              </span>
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              {category.tools.map((tool) => (
-                <ToolCard
-                  key={tool.href}
-                  title={tool.title}
-                  description={tool.description}
-                  icon={tool.icon}
-                  href={tool.href}
-                  badge={tool.badge}
-                />
-              ))}
+        <TabsContent value="basic" className="space-y-8">
+          {filteredTools.filter(c => c.category.toLowerCase().includes('基础')).map((category) => (
+            <div key={category.category}>
+              <h2 className="text-xl font-semibold mb-4">{category.category}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {category.tools.map((tool) => (
+                  <ToolCard key={tool.href} title={tool.title} description={tool.description} icon={tool.icon} href={tool.href} badge={tool.badge} />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
-      </TabsContent>
+          ))}
+        </TabsContent>
+
+        <TabsContent value="advanced" className="space-y-8">
+          {filteredTools.filter(c => c.category.toLowerCase().includes('高级')).map((category) => (
+            <div key={category.category}>
+              <h2 className="text-xl font-semibold mb-4">{category.category}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {category.tools.map((tool) => (
+                  <ToolCard key={tool.href} title={tool.title} description={tool.description} icon={tool.icon} href={tool.href} badge={tool.badge} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </TabsContent>
+
+        <TabsContent value="ai" className="space-y-8">
+          {filteredTools.filter(c => c.category.toLowerCase().includes('ai')).map((category) => (
+            <div key={category.category}>
+              <h2 className="text-xl font-semibold mb-4">{category.category}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {category.tools.map((tool) => (
+                  <ToolCard key={tool.href} title={tool.title} description={tool.description} icon={tool.icon} href={tool.href} badge={tool.badge} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

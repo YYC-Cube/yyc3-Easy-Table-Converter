@@ -629,10 +629,7 @@ export class MetaverseAssetManager implements IDigitalTwinTool {
       throw new Error(`创建虚拟环境失败: ${error instanceof Error ? error.message : '未知错误'}`);
     }
   }
-  
-  
-  
-  
+}
   
   
   

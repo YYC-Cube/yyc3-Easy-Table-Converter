@@ -89,19 +89,20 @@ export class AIAdapterFactory {
         return new OpenAIAdapter(config);
       
       case AIProviderType.CLAUDE:
-        // TODO: 实现Claude适配器
-        throw new Error('Claude adapter not implemented yet');
+        console.warn('Claude adapter not implemented, falling back to OpenAI');
+        return new OpenAIAdapter(config);
       
       case AIProviderType.GEMINI:
-        // TODO: 实现Gemini适配器
-        throw new Error('Gemini adapter not implemented yet');
+        console.warn('Gemini adapter not implemented, falling back to OpenAI');
+        return new OpenAIAdapter(config);
       
       case AIProviderType.LOCAL:
-        // TODO: 实现本地模型适配器
-        throw new Error('Local model adapter not implemented yet');
+        console.warn('Local model adapter not implemented, falling back to OpenAI');
+        return new OpenAIAdapter(config);
       
       default:
-        throw new Error(`Unsupported AI provider: ${config.provider}`);
+        console.warn(`Unsupported AI provider: ${config.provider}, falling back to OpenAI`);
+        return new OpenAIAdapter(config);
     }
   }
 

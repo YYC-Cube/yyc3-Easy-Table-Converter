@@ -55,6 +55,7 @@ module.exports = {
     '**/__tests__/integration/**/*.test.ts',
     '**/__tests__/components/**/*.test.tsx',
     '**/__tests__/hooks/**/*.test.ts',
+    '**/__tests__/providers/**/*.test.tsx',
     '**/__tests__/mutation/**/*.test.ts',
   ],
   

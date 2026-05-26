@@ -1,0 +1,260 @@
+# 预渲染问题修复指南
+
+## 📋 问题概述
+
+在 Next.js 14+ (App Router) 项目中，预渲染错误是一个常见的挑战。本指南总结了项目中遇到的主要预渲染问题及其解决方案，帮助开发者快速识别和修复类似问题。
+
+## 🔍 常见预渲染错误类型
+
+### 1. `Cannot read properties of null (reading 'useContext')`
+
+**原因**：
+
+- 在服务器端渲染期间，React Context 不可用或未正确提供
+- 客户端组件在服务器端执行时尝试访问 Context
+
+**解决方案**：
+
+- 确保 Context Provider 在根布局中始终渲染，不要依赖客户端挂载状态
+- 为所有使用 Context 的组件添加默认值处理
+
+### 2. 客户端 API 使用错误
+
+**错误信息**：
+
+- `window is not defined`
+- `document is not defined`
+- `navigator is not defined`
+- `localStorage is not defined`
+
+**原因**：
+
+- 在服务器端渲染期间直接使用客户端专属 API
+
+**解决方案**：
+
+- 添加客户端环境检查：`typeof window !== 'undefined'`
+- 使用 `useEffect` 钩子在客户端挂载后执行
+- 考虑使用 `dynamic` 导入进行懒加载
+
+### 3. 语法错误导致的预渲染失败
+
+**原因**：
+
+- 代码中的语法错误（如缺少括号、分号等）
+- 影响了整个页面的预渲染过程
+
+**解决方案**：
+
+- 使用 TypeScript 严格类型检查
+- 配置 ESLint 和 Prettier 进行代码质量控制
+- 定期运行构建命令验证代码
+
+## 🛠️ 系统性解决方案
+
+### 1. 为所有页面添加 `'use client'` 指令
+
+对于包含客户端逻辑的页面，确保在文件开头添加 `'use client'` 指令：
+
+```typescript
+"use client"
+
+import React, { useState } from 'react';
+
+// 组件实现...
+```
+
+### 2. Context Provider 配置优化
+
+确保 Context Provider 在根布局中正确配置，并且不依赖客户端挂载状态：
+
+```typescript
+// app/ClientLayout.tsx
+"use client"
+
+import { useState, useEffect } from 'react'
+import { LanguageProvider } from '@/providers/LanguageProvider'
+import { ThemeProvider } from '@/providers/ThemeProvider'
+
+export const ClientLayout = ({ children }) => {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // 重要：Context Provider 应始终渲染，不要包裹在 mounted 检查中
+  return (
+    <ThemeProvider>
+      <LanguageProvider>
+        {/* 只有真正需要客户端环境的组件才需要 mounted 检查 */}
+        {mounted && <Analytics />}
+        {children}
+      </LanguageProvider>
+    </ThemeProvider>
+  )
+}
+```
+
+### 3. useToast 正确使用方式
+
+避免在服务器端直接调用 toast 方法：
+
+```typescript
+"use client"
+
+import React, { useRef, useEffect } from 'react';
+import { useToast } from '@/hooks/useToast';
+
+export default function MyComponent() {
+  // 使用 useRef 存储 toast 实例
+  const toastRef = useRef<any>(null);
+  
+  useEffect(() => {
+    // 只在客户端挂载后设置 toast 引用
+    if (typeof window !== 'undefined') {
+      toastRef.current = useToast();
+    }
+  }, []);
+
+  const handleAction = () => {
+    // 安全地调用 toast，检查引用是否存在
+    if (toastRef.current) {
+      toastRef.current.success('操作成功');
+    }
+  };
+
+  return (
+    <button onClick={handleAction}>执行操作</button>
+  );
+}
+```
+
+### 4. 客户端 API 安全使用
+
+```typescript
+"use client"
+
+import React, { useState, useEffect } from 'react';
+
+// 安全地使用 localStorage
+const getItemFromStorage = (key: string): string | null => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem(key);
+  }
+  return null;
+};
+
+const setItemToStorage = (key: string, value: string): void => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(key, value);
+  }
+};
+
+// 在 useEffect 中使用客户端 API
+useEffect(() => {
+  // 这里可以安全地使用 window, document 等
+  const width = window.innerWidth;
+  // ...
+}, []);
+```
+
+### 5. 组件级别的客户端检查
+
+对于可能在服务器端渲染的组件，可以添加内部检查：
+
+```typescript
+"use client"
+
+import React, { useState, useEffect } from 'react';
+
+export const MyComponent = () => {
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // 可以使用条件渲染确保客户端功能只在客户端执行
+  return (
+    <div>
+      {isClient && (
+        <div className="client-only-feature">
+          {/* 客户端特有功能 */}
+        </div>
+      )}
+    </div>
+  );
+};
+```
+
+## 🚀 自动化工具
+
+项目中包含一个自动化脚本 `fix_prerender_errors.sh`，可以帮助检测和修复常见的预渲染问题：
+
+### 脚本功能
+
+1. 自动为缺少 `'use client'` 的页面添加指令
+2. 检测使用 `useToast` 的页面
+3. 识别使用客户端 API 的页面
+4. 生成详细的修复报告
+
+### 使用方法
+
+```bash
+chmod +x fix_prerender_errors.sh
+./fix_prerender_errors.sh
+```
+
+## 🔒 最佳实践
+
+### 开发环境
+
+1. **使用 TypeScript**：利用类型检查捕获潜在错误
+2. **配置 ESLint**：添加 Next.js 特定的 linting 规则
+3. **定期运行构建**：不要仅依赖开发服务器
+4. **使用 React DevTools**：检查组件的客户端/服务器渲染状态
+
+### 代码编写
+
+1. **组件拆分**：将客户端和服务器端逻辑分离
+2. **懒加载**：对大型客户端组件使用 `dynamic` 导入
+3. **默认值**：为状态和 props 提供合理的默认值
+4. **错误边界**：为关键组件添加错误边界处理
+
+### 架构设计
+
+1. **Context 设计**：确保 Context 提供者在服务器端也能提供合理的默认值
+2. **状态管理**：避免在顶层组件中依赖客户端状态
+3. **数据获取**：使用 `fetch` 或服务器组件进行初始数据获取
+
+## 📝 检查清单
+
+在创建或修改页面时，请检查以下几点：
+
+- [ ] 页面是否需要客户端功能？如果是，添加 `'use client'`
+- [ ] 是否使用了 `useContext`？确保 Provider 在服务器端可用
+- [ ] 是否使用了客户端 API？添加环境检查
+- [ ] 是否直接调用 `useToast`？使用 `useRef` 和 `useEffect` 模式
+- [ ] 运行构建命令验证页面是否能正常预渲染
+
+## 💡 调试技巧
+
+1. **使用 `console.log`**：在关键位置添加日志，区分服务器和客户端执行
+2. **检查构建输出**：Next.js 构建日志会显示预渲染失败的具体页面
+3. **使用 `next dev --debug`**：启用调试模式获取更详细的信息
+4. **简化组件**：逐步注释组件代码，定位问题源头
+
+## 📚 参考资源
+
+- [Next.js 文档：预渲染](https://nextjs.org/docs/app/building-your-application/rendering)
+- [Next.js 文档：客户端和服务器组件](https://nextjs.org/docs/app/building-your-application/rendering/client-components)
+- [React 文档：useEffect](https://react.dev/reference/react/useEffect)
+
+---
+
+**作者**: YYC 团队 🌹
+**创建日期**: 2024-10-15
+**最后更新**: 2024-10-15
+
+保持代码健康，稳步前行！ 🌹

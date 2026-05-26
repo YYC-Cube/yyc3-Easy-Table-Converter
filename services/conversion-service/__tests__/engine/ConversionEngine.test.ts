@@ -116,7 +116,6 @@ describe("ConversionEngine", () => {
       expect(formats.length).toBeGreaterThan(0);
     });
   });
-  });
 
   describe("getEngineStatus方法", () => {
     it("应该返回正确的引擎状态信息", () => {
@@ -327,5 +326,5 @@ describe("ConversionEngine", () => {
       // 验证关闭逻辑是否执行
       expect(mockLogger.info).toHaveBeenCalledWith("转换引擎已成功关闭");
     });
-  })
+  });
 });
