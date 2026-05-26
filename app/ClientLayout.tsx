@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from 'react'
-import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/providers/ThemeProvider'
 import { LanguageProvider } from '@/providers/LanguageProvider'
 import { ToastProvider } from './providers/toast-provider'
@@ -31,7 +30,6 @@ export const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
           <LanguageProvider>
             <AuthProvider>
               <PWAProvider>
-                {mounted && <Analytics />}
                 {children}
                 {aiSettings?.enableFloatingChat && (
                   <FloatingChat position={aiSettings.floatingChatPosition} />

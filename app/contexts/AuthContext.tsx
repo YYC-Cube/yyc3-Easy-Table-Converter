@@ -48,6 +48,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [permissions, setPermissions] = useState<string[]>([]);
 
   const refreshUser = useCallback(async () => {
+    if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && !window.location.port) {
+      setIsLoading(false);
+      return;
+    }
     try {
       const response = await fetch('/api/auth', {
         method: 'GET',
